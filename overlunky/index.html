@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/dark.min.css">
+        <title>Overlunky Lua Docs</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </head>
+    <body>
+        <style>
+            @font-face {
+                font-family: Yorkten;
+                src: url("YorktenNormRegular.otf");
+            }
+            body {
+                color: white;
+                background-color: #333;
+                font-family: Yorkten;
+            }
+            p {
+                font-size: 15px;
+            }
+        </style>
+        <h1>Overlunky Scripting Documentation</h1>
+        <h4>By C_ffeeStain</h4>
+        <br>
+        <h2>Functions</h2>
+        <h4>spawn_entity</h4>
+        <p>The function spawn_entity spawns an entity, and it takes 7 parameters. They are as follows:</p>
+        <p>&ensp;&ensp;<i style="font-weight:bold; font-style: normal;">id</i>: This is the ID of the entity that you spawn.</p>
+        <p>&ensp;&ensp;<i style="font-weight:bold; font-style: normal;">x</i>: This is the X position of the spawned entity.</p>
+        <p>&ensp;&ensp;<i style="font-weight:bold; font-style: normal;">y</i>: This is the Y position of the spawned entity.</p>
+        <p>&ensp;&ensp;<i style="font-weight:bold; font-style: normal;">s</i>: This is true for screen coordinates and false for coordinates relative to the player.</p>
+        <p>&ensp;&ensp;<i style="font-weight:bold; font-style: normal;">vx</i>: The velocity on the X axis of the spawned entity.</p>
+        <p>&ensp;&ensp;<i style="font-weight:bold; font-style: normal;">vy</i>: The velocity on the Y axis of the spawned entity.</p>
+        <p>&ensp;&ensp;<i style="font-weight:bold; font-style: normal;">snap</i>: If the entity snaps to the auto grid or not. Must be true or false, respectively.</p>
+        <p>Example:</p>
+        <pre><code class="lua">spawn_entity(631, 0, 0, false, 0, 0, true) -- Spawns an big explosion on the player when they enter a level</code></pre>
+        <h4>onLevel</h4>
+        <p>The function onLevel() cannot be called, and is automatically called at the start of each level. Example:</p>
+        <pre><code>function onLevel()
+    spawn_entity(632, 0, 0, false, 0, 0, true) -- Spawns an explosion on the player when they enter a level
+end
+        </code></pre> 
+        <p></p>
+    </body>
+</html>
