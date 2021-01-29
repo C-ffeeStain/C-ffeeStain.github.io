@@ -3,9 +3,36 @@
     <head>
         <title>Installing Overlunky</title>
         <link rel="stylesheet" href="css/index.css">
+        <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/dark.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
     </head>
     <body>
         <h1>Installing Overlunky</h1>
+        <a href="index.html">Go back</a>
+        <h2>Release</h2>
+        <p>Simply press <a class="hidden_link" href="https://github.com/spelunky-fyi/overlunky/releases/download/0.4.0/Overlunky_0.4.0.zip">this</a> to download the latest release of Overlunky, or go to <a class="hidden_link" href="">here</a>, and click Overlunky_0.4.0.zip!</p>
+        <h2>Development</h2>
+        <p>If you want to help with development, get cmake and git, and then type the following into a command prompt:</p>
+        <pre><code class="bash">git clone https://github.com/spelunky-fyi/overlunky/
+cd overlunky
+git submodule update --init --recursive
+mkdir build
+cd build
+cmake ..
+cmake --build . --config Release --target ALL_BUILD
+</code></pre>
+    <h2>Lua Support</h2>
+    <p>Since the main page does not have Lua support, the command is slightly different.</p>
+    <pre><code>git clone https://github.com/Dregu/overlunky/
+cd overlunky
+git submodule update --init --recursive
+mkdir build
+cd build
+cmake ..
+cmake --build . --config Release --target ALL_BUILD</code></pre>
     </body>
-</html>
+
+    </html>
 

@@ -20,3 +20,12 @@ a:visited {
 a:hover {
     color: rgb(3, 120, 199);
 }
+.hidden_link {
+    color: white;
+}
+.hidden_link:visited {
+    color: white;
+}
+.hidden_link:hover {
+    color: white;
+}
