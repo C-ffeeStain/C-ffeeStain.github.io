@@ -1,0 +1,13 @@
+@font-face {
+    font-family: Yorkten;
+    src: url("YorktenNormRegular.otf");
+}
+html {
+    margin-top: 0px;
+    color: white;
+    background-color: #333;
+    font-family: Yorkten;
+}
+p {
+    font-size: 15px;
+}
