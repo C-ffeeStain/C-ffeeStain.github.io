@@ -12,5 +12,11 @@ p {
     font-size: 15px;
 }
 a {
-    color: rgb(42, 107, 226)
+    color: rgb(3, 120, 199);
+}
+a:visited {
+    color: rgb(3, 120, 199);
+}
+a:hover {
+    color: rgb(3, 120, 199);
 }
