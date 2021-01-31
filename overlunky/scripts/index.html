@@ -34,6 +34,10 @@
     spawn_entity(632, 0, 0, false, 0, 0, true) -- Spawns an explosion on the player
 end
         </code></pre> 
-        <p></p>
+        <h4>onFrame</h4>
+        <p>onFrame executes every frame. It is similar to onLevel, as it cannot be called directly.</p>
+        <pre><code>function onFrame()
+    spawn_entity(632, 0, 0, false, 0, 0, true) -- Spawns an bomb on the player every frame - will crash your game
+end</code></pre>
     </body>
 </html>
