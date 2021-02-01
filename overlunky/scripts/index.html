@@ -19,16 +19,42 @@
         <h2>Functions</h2>
         <h4>spawn_entity</h4>
         <p>The function spawn_entity spawns an entity, and it takes 7 parameters. They are as follows:</p>
-        <p>&ensp;&ensp;<i style="font-weight:bold; font-style: normal;">id</i>: This is the ID of the entity that you spawn.</p>
-        <p>&ensp;&ensp;<i style="font-weight:bold; font-style: normal;">x</i>: This is the X position of the spawned entity.</p>
-        <p>&ensp;&ensp;<i style="font-weight:bold; font-style: normal;">y</i>: This is the Y position of the spawned entity.</p>
-        <p>&ensp;&ensp;<i style="font-weight:bold; font-style: normal;">s</i>: This is true for screen coordinates and false for coordinates relative to the player.</p>
+        <p>&ensp;&ensp;<i style="font-weight:bold; font-style: normal;">id</i>: The ID of the entity that you spawn.</p>
+        <p>&ensp;&ensp;<i style="font-weight:bold; font-style: normal;">x</i>: The X position of the spawned entity.</p>
+        <p>&ensp;&ensp;<i style="font-weight:bold; font-style: normal;">y</i>: The Y position of the spawned entity.</p>
+        <p>&ensp;&ensp;<i style="font-weight:bold; font-style: normal;">s</i>: True for screen coordinates and false for coordinates relative to the player.</p>
         <p>&ensp;&ensp;<i style="font-weight:bold; font-style: normal;">vx</i>: The velocity on the X axis of the spawned entity.</p>
         <p>&ensp;&ensp;<i style="font-weight:bold; font-style: normal;">vy</i>: The velocity on the Y axis of the spawned entity.</p>
         <p>&ensp;&ensp;<i style="font-weight:bold; font-style: normal;">snap</i>: If the entity snaps to the auto grid or not. Must be true or false, respectively.</p>
         <p>Example:</p>
         <pre><code class="lua">spawn_entity(631, 0, 0, false, 0, 0, true) -- Spawns an big explosion on the player when they enter a level</code></pre>
-        <h4>onLevel</h4>
+        <h4>spawn_door</h4>
+        <p>The function spawn_door spawns a door, and it takes 6 parameters.</p>
+        <p>&ensp;&ensp;<i style="font-weight:bold; font-style: normal;">x</i>: The X position of the door.</p>
+        <p>&ensp;&ensp;<i style="font-weight:bold; font-style: normal;">y</i>: The Y position of the door.</p>
+        <p>&ensp;&ensp;<i style="font-weight:bold; font-style: normal;">l</i>: The level of the world that the door links to.</p>
+        <p>&ensp;&ensp;<i style="font-weight:bold; font-style: normal;">w</i>: The world the door links to.</p>
+        <p>&ensp;&ensp;<i style="font-weight:bold; font-style: normal;">t</i>: The theme of the level the door links to. Can be any of the following options:</p>
+        <ul>
+            <li>THEME.DWELLING</li>
+            <li>THEME.JUNGLE</li>
+            <li>THEME.VOLCANA</li>
+            <li>THEME.OLMEC</li>
+            <li>THEME.TIDE_POOL</li>
+            <li>THEME.TEMPLE</li>
+            <li>THEME.ICE_CAVES</li>
+            <li>THEME.NEO_BABYLON</li>
+            <li>THEME.SUNKEN_CITY</li>
+            <li>THEME.COSMIC_OCEAN</li>
+            <li>THEME.CITY_OF_GOLD</li>
+            <li>THEME.DUAT</li>
+            <li>THEME.ABZU</li>
+            <li>THEME.TIAMAT</li>
+            <li>THEME.EGGPLANT_WORLD</li>
+            <li>THEME.HUNDUN</li>
+            <li>THEME.BASE_CAMP</li>
+        </ul>
+            <h4>onLevel</h4>
         <p>The function onLevel() cannot be called, and is automatically called at the start of each level. Example:</p>
         <pre><code>function onLevel()
     spawn_entity(632, 0, 0, false, 0, 0, true) -- Spawns an explosion on the player
