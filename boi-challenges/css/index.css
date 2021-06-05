@@ -3,3 +3,17 @@
 body {
     font-family: 'Roboto', sans-serif;
 }
+
+.challenge {
+    border: 1px solid gray;
+    float: left;
+    border-radius: 5px;
+    margin-left: 5px;
+    margin-bottom: 10px;
+}
+
+.challenge-title, .challenge-exp, .challenge-shortdesc {
+    text-align: center;
+    padding-right: 2px;
+    padding-left: 2px;
+}
