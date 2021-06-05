@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="ASCII">
+        <title>Browse Challenges - Custom Challenges for Binding of Isaac</title>
+        <link rel="stylesheet" href="index.css">
+    </head>
+    <body>
+         <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+        <script>
+            function checkCookiesForString(string)
+            {
+                cookie = Cookies.get("boi-challenges-login-code");
+                if (cookie == undefined)
+                {
+                    Cookies.set("boi-challenges-login-code", "test_value");
+                }
+                else {
+                    console.log(cookie)
+                }
+            }
+        </script>
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> 
+        <ul class="nav nav-tabs" role="tablist">
+            <a class="navbar-brand" href="/boi-challenges/">Binding of Isaac Challenges</a>
+            <li><a href="#">Submit a Challenge</a></li>
+            <li><a href="#" >Browse Challenges</a></li>
+        </ul>
+        <h1 id="main-header">Custom Challenges for Binding of Isaac</h1>
+        <div id="challenge-container">
+            <div class="card challenge" style="width: 18rem;">
+                <div class="card-body">
+                <h5 class="card-title challenge-title">Custom Challenge</h5>
+                <h6 class="card-subtitle mb-2 text-muted challenge-exp">Repentance</h6>
+                <p class="card-text challenge-shortdesc">This is a short description of this custom challenge.</p>
+                </div>
+            </div>
+            <div class="card challenge" style="width: 18rem;">
+                <div class="card-body">
+                <h5 class="card-title challenge-title">No Resources Challenge</h5>
+                <h6 class="card-subtitle mb-2 text-muted challenge-exp">Repentance</h6>
+                <p class="card-text challenge-shortdesc">Don't use any bombs, keys, or coins during the run.</p>
+                </div>
+            </div>
+            <div class="card challenge" style="width: 18rem;">
+                <div class="card-body">
+                <h5 class="card-title challenge-title">No Resources Challenge</h5>
+                <h6 class="card-subtitle mb-2 text-muted challenge-exp">Repentance</h6>
+                <p class="card-text challenge-shortdesc">Don't use any bombs, keys, or coins during the run.</p>
+                </div>
+            </div>
+            <div class="card challenge" style="width: 18rem;">
+                <div class="card-body">
+                <h5 class="card-title challenge-title">No Resources Challenge</h5>
+                <h6 class="card-subtitle mb-2 text-muted challenge-exp">Repentance</h6>
+                <p class="card-text challenge-shortdesc">Don't use any bombs, keys, or coins during the run.</p>
+                </div>
+            </div>
+            <div class="card challenge" style="width: 18rem;">
+                <div class="card-body">
+                <h5 class="card-title challenge-title">No Resources Challenge</h5>
+                <h6 class="card-subtitle mb-2 text-muted challenge-exp">Repentance</h6>
+                <p class="card-text challenge-shortdesc">Don't use any bombs, keys, or coins during the run.</p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
