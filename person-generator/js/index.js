@@ -1,6 +1,6 @@
 const genders = ["Transgender", "Genderqueer", "Non-Binary"];
 const sexualities = ["Homosexual", "Bisexual", "Pansexual"];
-const base_url = "https://github.com/C-ffeeStain/C-ffeeStain.github.io/raw/main/person-generator/information_files/" 
+const base_url = "https://raw.github.com/C-ffeeStain/C-ffeeStain.github.io/main/person-generator/information_files/" 
 
 function get_info_from_url(url)
 {
