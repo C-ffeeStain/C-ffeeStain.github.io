@@ -1,0 +1,14 @@
+Emperor;Empress
+King;Queen
+General
+Cadet
+Captain
+Private
+Sergeant
+President
+Vice President
+Pope
+Principal
+Prime Minister
+Prince;Princess
+Dictator

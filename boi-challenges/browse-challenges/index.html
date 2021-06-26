@@ -7,6 +7,10 @@
         <link rel="stylesheet" href="index.css">
     </head>
     <body>
+        <script type="module">
+            import { v4 as uuidv4 } from 'https://jspm.dev/uuid';
+            console.log(uuidv4()); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
+          </script>
          <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
@@ -21,11 +25,10 @@
                 cookie = Cookies.get("boi-challenges-login-code");
                 if (cookie == undefined)
                 {
-                    Cookies.set("boi-challenges-login-code", "test_value");
-                    console.log("I set a cookie!")
+                    Cookies.set("boi-challenges-login-code", uuidv4());
                 }
                 else {
-                    console.log(cookie)
+                    return cookie;
                 }
             }
             $(document).ready(checkCookiesForString)
