@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Safe Username Generator</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script>
+        const adjectives = ["Vivacious", "Luminescent", "Epic", "Adventurous", "Good", "Funny", "Hilarious", "Overpowered", "Strong", "Undeniable", "Powerful", "Satiated", "Stunned", "Heavenly", "Godly", "Lucky", "Flavorful", "Suspicious", "Fair", "Stealthy", "Courageous", "Jumpy", "Speedy", "Ghostly", "Joyful", "Grateful", "Merciful", "Graceful", "Monstrous", "Cheery", "Chunky", "Happy", "Great", "Invincible", "Weary", "Scary", "Demonic", "Unhappy", "Vulnerable", "Ungodly", "Awoken", "Damaging", "Tarnished", "Sad", "Angry", "Comfortable", "Bright", "Dim", "Vampiric", "Infected", "Decisive", "Indecisive", "Yelling", "Crazy", "Insane", "Unimaginable", "Long", "Short", "Tall", "Large", "Jolly", "Rewarding", "Fiery", "Peaceful", "Haunted", "Undead", "Evil"];
+        const nouns = ["Lemur", "Tiger", "Person", "Axolotl", "Jester", "Plumber", "Mason", "Goatee", "Frog", "Robin", "Lion", "Cat", "Dog", "Starfish", "Horse", "Goat", "Kangaroo", "Koala", "Spider", "Walrus", "Bear", "Seal", "Pony", "Puppy", "Kitten", "Shark", "Dinosoar", "Monkey", "Vulture", "Fly", "Bee", "Wasp", "Vampire", "Zombie", "Ghoul", "Hooligan", "Ant", "Beetle", "Whale", "Dolphin", "Mummy", "Wolf", "God", "Angel", "Demon", "Yak", "Being", "Human", "Rat", "Mouse", "Wizard", "Witch", "Snake", "Mermaid", "Merman", "Fairy", "Werewolf", "Cyclops", "Unicorn", "Pegasus", "Joker", "Centaur", "Gladiator", "Emperor", "Empress", "Servant", "Knight", "Queen", "King", "Squire", "Egg", "Pancake", "Watermelon", "Strawberry", "Pineapple", "Mango", "Apple", "Lemon", "Lime", "Bull", "Bison", "Buffalo"];
+
+        function generate_username() {
+            var username = adjectives[Math.floor(Math.random() * adjectives.length)] + nouns[Math.floor(Math.random() * nouns.length)];
+            var number = Math.floor(Math.random() * 999)
+            if (number < 10) {
+                number = "00" + number;
+            }
+            else if (number < 100) {
+                number = "0" + number;
+            }
+            var generated_username = document.getElementById("username")
+            generated_username.innerText = username + number;
+        }
+    </script>
+</head>
+
+<body>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <div class="container-fluid text-center">
+        <h1>Safe Username Generator</h1>
+        <p>This generates a safe username that should be family friendly. Just press the button below to generate one.
+        </p>
+        <h3 id="username">Usernames will be shown here...</h3>
+        <button type="button" class="btn btn-primary btn-lg" onclick="generate_username()">Generate
+            Username</button><br>
+
+    </div>
+</body>
+
+</html>
