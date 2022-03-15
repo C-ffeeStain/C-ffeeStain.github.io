@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka&display=swap');
+
+body {
+    /* background color should be dark gray */
+    background-color: #2f2f2f;
+}
+
+h1 {
+  font-family: 'Fredoka', cursive;
+  font-size: 2.5rem;
+  color: #fff;
+  margin-top: 1px;
+  margin-left: 5px;
+}
+
+p {
+    font-family: 'Fredoka', cursive;
+    font-size: 1.5rem;
+    color: #fff;
+    margin-left: 5px;
+    text-align: left;
+}
+
+#disease-container {
+    /* height: 80%; */
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+#disease-name {
+    font-family: 'Fredoka', cursive;
+    font-size: 2rem;
+    color: #2f2f2f;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+#disease-symptoms {
+    font-family: 'Fredoka', cursive;
+    font-size: 1.5rem;
+    color: #2f2f2f;
+    margin-top: 10px;
+    margin-bottom: 3px;
+    text-align: left;
+}
+
+#disease-symptoms-list {
+    font-family: 'Fredoka', cursive;
+    /* margin-top: 4px; */
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+/* a paragraph at the bottom of the page that says "© C-ffeeStain 2022" */
+#copyright {
+    font-family: 'Fredoka', cursive;
+    font-size: 1.5rem;
+    color: #FFFFFF;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+}
