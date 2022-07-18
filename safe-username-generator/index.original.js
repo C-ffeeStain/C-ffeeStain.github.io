@@ -165,15 +165,14 @@ function getRandomFromArray(arr) {
 }
 
 function displayNum(num) {
-    switch (num) {
-        case num < 10:
+    switch (num.toString().length) {
+        case 1:
             return "000" + num;
-        case num < 100:
+        case 2:
             return "00" + num;
-        case num < 1000:
+        case 3:
             return "0" + num;
         default:
-            console.log("returning default")
             return num;
     }
 }
