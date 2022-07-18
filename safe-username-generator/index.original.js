@@ -173,6 +173,7 @@ function displayNum(num) {
         case num < 1000:
             return "0" + num;
         default:
+            console.log("returning default")
             return num;
     }
 }
