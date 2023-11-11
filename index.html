@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="stylesheet.css">
+    <script>
+        function redirect(option) {
+            switch (option) {
+                case 1:
+                    window.location.href = "binary.html";
+                    break;
+                case 2:
+                    window.location.href = "logical-or.html";
+                    break;
+                
+                case 3:
+                    window.location.href = "logical-and.html";
+                    break;
+            
+                default:
+                    break;
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Binary Test Suite</h1>
+    <p id="flavor-text">Please choose an option below.</p>
+    <div id="center">
+        <button id="binary" onclick="redirect(1)" class="test">Binary Test</button> <br />
+        <p>Translate integers to binary.</p>
+        <button id="logical-or" onclick="redirect(2)" class="test">Logical Or</button> <br />
+        <p>Translate two integers to binary, and then emulate a logical OR operation on the two.</p>
+        <button id="logical-and" onclick="redirect(3)" class="test">Logical And</button>
+        <p>Translate two integers to binary, and then emulate a logical AND operation on the two.</p>
+    </div>
+</body>
+
+</html>
