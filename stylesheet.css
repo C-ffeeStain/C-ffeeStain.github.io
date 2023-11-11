@@ -36,6 +36,8 @@ p {
     margin-top: 16px;
     padding: 16px 256px 16px 256px;;
     border-radius: 15px;
+    
+    text-wrap: nowrap;
 }
 
 .test:hover {
