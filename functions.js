@@ -75,14 +75,40 @@ function handleIncorrect(prompt) {
     }, 500);
 }
 
-// Remove the Check button and tell the user to reload, called when number is correct
+function resetBits() {
+    for (let i = 0; i < numOfBits; i++) {
+        let bit = document.getElementById(`b${i}`);
+        if (bit) {
+            bit.innerText = "0";
+        } else {
+            alert("couldn't find bit #" + i.toString());
+        }
+    }
+}
+
+// Tell user that they are correct and reate new problem, called when number is correct
 function handleCorrect(prompt) {
     const check = document.getElementById("check");
 
-    check.parentElement.removeChild(check);
-
-    prompt.innerText = "Correct! Reload the page to do it again!";
+    let buffer = prompt.innerHTML;
+    prompt.innerHTML = "Correct! Creating new problem...";
     prompt.style.color = "rgb(93, 160, 79)";
+
+    setTimeout(() => {
+        prompt.style.color = "white";
+        prompt.innerHTML = buffer;
+
+        resetBits();
+        generateNew();
+
+
+    }, 1000);
+}
+
+function generateNew() {
+    const numQ = document.getElementById("question");
+    num = randomNumber(0, maxNum);  
+    numQ.innerText = num.toString();
 }
 
 // Check if user's bits are correct, handle accordingly
