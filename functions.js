@@ -20,14 +20,15 @@ function redirect(option) {
 const numOfBits = 8;
 const maxNum = 255;
 
-let numQ = 0;
+let num = 0;
 
 function randomNumber(min, max) {
     return Math.floor(Math.random() * max) + min;
 }
 
-function toggleBit(num) {
-    let bit = document.getElementById("b" + num.toString());
+
+function toggleBit(bitNum) {
+    let bit = document.getElementById("b" + bitNum.toString());
     if (bit.innerText == "0") {
         bit.innerText = "1";
         return;
@@ -58,6 +59,7 @@ function binToInt(bits) {
             numValue += 2 ** (numOfBits - 1 - index);
         }
     }
+    return numValue;
 }
 
 // Tell user that answer is incorrect, revert to normal prompt after 1/2 of a second, called when number is incorrect
@@ -89,7 +91,7 @@ function checkBits() {
 
     let prompt = document.getElementById("prompt")
     
-    if (numValue == numQ) {
+    if (numValue == num) {
         handleCorrect(prompt);
         return;
     }
