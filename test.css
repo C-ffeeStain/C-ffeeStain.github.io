@@ -1,0 +1,67 @@
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    /* Set the body height to the full viewport height */
+    margin: 0;
+    /* Remove default margin */
+    font-family: monospace;
+
+    background-color: #242424;
+    color: white;
+}
+
+#top {
+    flex: 1;
+    /* Take up 10% of the height */
+    
+    text-align: center;
+    font-size: 32px;
+}
+
+#bottom {
+    flex: 9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+footer {
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.bit {
+    color: white;
+    margin: 10px;
+    font-family: monospace;
+
+    background: none;
+    border: none;
+    font-size: 128px;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+#question {
+    color: #39a85a;
+}
+
+#prompt {
+    font-size: 32px;
+}
+
+#check {
+    padding-top: 16px;
+    padding-bottom: 16px;
+
+    color: white;
+    font-family: monospace;
+
+    background-color: rgb(93, 160, 79);
+    border: 1px solid rgb(93, 160, 79);
+    border-radius: 8px;
+}

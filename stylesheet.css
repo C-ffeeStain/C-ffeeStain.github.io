@@ -26,6 +26,21 @@ p {
     margin-bottom: 16px;
 }
 
+.bit {
+    font-family: monospace;
+    color: white;
+    background: none;
+    border: none;
+    top: 50%;
+    transform: translateY(50);
+    width: calc(12.5% - 50px); /* Calculate the width for each button with some spacing */
+    margin: 5px; /* Adjust margin for spacing between buttons */
+}
+
+.bit:hover {
+    cursor: help;
+}
+
 .test {
     color: white;
     font-family: monospace;
@@ -36,10 +51,16 @@ p {
     margin-top: 16px;
     padding: 16px 256px 16px 256px;;
     border-radius: 15px;
-    
-    text-wrap: nowrap;
+
+    text-align: center;
+    align-items: center;
+
 }
 
 .test:hover {
     background-color: #525252;
+}
+
+.prompt {
+    color: #39a85a;
 }
