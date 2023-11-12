@@ -1,5 +1,5 @@
 const numOfBits = 8;
-const maxNum = 255;
+const maxNum = 2 ** numOfBits - 1;
 
 let num = 0;
 
