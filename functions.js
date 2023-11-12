@@ -1,3 +1,8 @@
+const numOfBits = 8;
+const maxNum = 255;
+
+let num = 0;
+
 function redirect(option) {
     switch (option) {
         case 1:
@@ -17,10 +22,6 @@ function redirect(option) {
     }
 }
 
-const numOfBits = 8;
-const maxNum = 255;
-
-let num = 0;
 
 // return random number between min and max
 function randomNumber(min, max) {
