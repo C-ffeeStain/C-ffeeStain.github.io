@@ -22,11 +22,12 @@ const maxNum = 255;
 
 let num = 0;
 
+// return random number between min and max
 function randomNumber(min, max) {
     return Math.floor(Math.random() * max) + min;
 }
 
-
+// toggle bit from 0 -> 1 or vice versa
 function toggleBit(bitNum) {
     let bit = document.getElementById("b" + bitNum.toString());
     if (bit.innerText == "0") {
@@ -51,7 +52,7 @@ function getBits() {
 }
 
 // Convert list of bits into an integer
-function binToInt(bits) {
+function binaryToInteger(bits) {
     let numValue = 0;
     for (let index = 0; index < bits.length; index++) {
         const bit = bits[index];
@@ -75,21 +76,15 @@ function handleIncorrect(prompt) {
     }, 500);
 }
 
+// set all bits to 0
 function resetBits() {
     for (let i = 0; i < numOfBits; i++) {
-        let bit = document.getElementById(`b${i}`);
-        if (bit) {
-            bit.innerText = "0";
-        } else {
-            alert("couldn't find bit #" + i.toString());
-        }
+        document.getElementById(`b${i}`).innerText = "0";
     }
 }
 
-// Tell user that they are correct and reate new problem, called when number is correct
+// Tell user that they are correct and create new problem, called when number is correct
 function handleCorrect(prompt) {
-    const check = document.getElementById("check");
-
     let buffer = prompt.innerHTML;
     prompt.innerHTML = "Correct! Creating new problem...";
     prompt.style.color = "rgb(93, 160, 79)";
@@ -105,15 +100,21 @@ function handleCorrect(prompt) {
     }, 1000);
 }
 
+// generate new problem
 function generateNew() {
     const numQ = document.getElementById("question");
     num = randomNumber(0, maxNum);  
     numQ.innerText = num.toString();
 }
 
+// get the user's bits and return value as integer
+function getBitsToInteger() {
+    return binaryToInteger(getBits());
+}
+
 // Check if user's bits are correct, handle accordingly
 function checkBits() {
-    let numValue = binToInt(getBits());
+    let numValue = getBitsToInteger();
 
     let prompt = document.getElementById("prompt")
     
