@@ -28,12 +28,14 @@ function nextQuestion() {
 
   options.forEach((option, index) => {
     if (curAnswers[index]) {
+      option.show();
       option.html(curAnswers[index]);
       option.style("background-color", activeStyle.backgroundColor);
       option.mouseClicked(setupOptionClicked(curAnswers[index]));
     } else {
-      option.html(defaultStyle.html);
-      option.style("background-color", defaultStyle.backgroundColor);
+      option.hide();
+      // option.html(defaultStyle.html);
+      // option.style("background-color", defaultStyle.backgroundColor);
     }
   });
 }
