@@ -23,7 +23,6 @@ function nextQuestion() {
   questionText = questions[curQuestionNum]["question"];
 
   const options = [option1, option2, option3, option4, option5, option6];
-  const defaultStyle = { html: "...", backgroundColor: "#969696" };
   const activeStyle = { backgroundColor: "#F0F0F0" };
 
   options.forEach((option, index) => {
@@ -34,8 +33,6 @@ function nextQuestion() {
       option.mouseClicked(setupOptionClicked(curAnswers[index]));
     } else {
       option.hide();
-      // option.html(defaultStyle.html);
-      // option.style("background-color", defaultStyle.backgroundColor);
     }
   });
 }
