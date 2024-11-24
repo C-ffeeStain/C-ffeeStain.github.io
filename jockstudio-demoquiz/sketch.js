@@ -64,50 +64,50 @@ function setup() {
   curQuestionNum = -1;
 
   leo = avan = bryce = yuuto = zayne = derek = 0;
-  leoChibi = loadImage("icons/leo.webp")
-  avanChibi = loadImage("icons/avan.webp")
-  bryceChibi = loadImage("icons/bryce.webp")
-  yuutoChibi = loadImage("icons/yuuto.webp")
-  zayneChibi = loadImage("icons/zayne.webp")
-  derekChibi = loadImage("icons/derek.webp")
+  leoChibi = loadImage("icons/leo.webp");
+  avanChibi = loadImage("icons/avan.webp");
+  bryceChibi = loadImage("icons/bryce.webp");
+  yuutoChibi = loadImage("icons/yuuto.webp");
+  zayneChibi = loadImage("icons/zayne.webp");
+  derekChibi = loadImage("icons/derek.webp");
 
   btnStartY = 145;
   btnOffsetY = 55;
 
-  option1 = createButton("Hanging out with friends")
-  option1.style("border", "none")
-  option1.style("font-family", "arial")
-  option1.style("height", "45px")
-  option1.style("width", "350px")
-  option1.position(25, btnStartY)
+  option1 = createButton("Hanging out with friends");
+  option1.style("border", "none");
+  option1.style("font-family", "arial");
+  option1.style("height", "45px");
+  option1.style("width", "350px");
+  option1.position(25, btnStartY);
 
-  option2 = createButton("Doing chores")
-  option2.style("border", "none")
-  option2.style("font-family", "arial")
-  option2.style("height", "45px")
-  option2.style("width", "350px")
+  option2 = createButton("Doing chores");
+  option2.style("border", "none");
+  option2.style("font-family", "arial");
+  option2.style("height", "45px");
+  option2.style("width", "350px");
   option2.position(25, btnStartY + btnOffsetY)
 
-  option3 = createButton("Gaming")
-  option3.style("border", "none")
-  option3.style("font-family", "arial")
-  option3.style("height", "45px")
-  option3.style("width", "350px")
-  option3.position(25, btnStartY + btnOffsetY * 2)
+  option3 = createButton("Gaming");
+  option3.style("border", "none");
+  option3.style("font-family", "arial");
+  option3.style("height", "45px");
+  option3.style("width", "350px");
+  option3.position(25, btnStartY + btnOffsetY * 2);
 
-  option4 = createButton("Sleeping")
-  option4.style("border", "none")
-  option4.style("font-family", "arial")
-  option4.style("height", "45px")
-  option4.style("width", "350px")
-  option4.position(25, btnStartY + btnOffsetY * 3)
+  option4 = createButton("Sleeping");
+  option4.style("border", "none");
+  option4.style("font-family", "arial");
+  option4.style("height", "45px");
+  option4.style("width", "350px");
+  option4.position(25, btnStartY + btnOffsetY * 3);
 
-  option5 = createButton("Going out")
-  option5.style("border", "none")
-  option5.style("font-family", "arial")
-  option5.style("height", "45px")
-  option5.style("width", "350px")
-  option5.position(25, btnStartY + btnOffsetY * 4)
+  option5 = createButton("Going out");
+  option5.style("border", "none");
+  option5.style("font-family", "arial");
+  option5.style("height", "45px");
+  option5.style("width", "350px");
+  option5.position(25, btnStartY + btnOffsetY * 4);
 
   option6 = createButton("TV & Chill")
   option6.style("border", "none")
