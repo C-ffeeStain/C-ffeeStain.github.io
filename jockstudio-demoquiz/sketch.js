@@ -22,15 +22,14 @@ function nextQuestion() {
   curAnswers = shuffle(Object.keys(questions[curQuestionNum]["answers"]));
   questionText = questions[curQuestionNum]["question"];
 
-  const options = [option1, option2, option3, option4, option5, option6];
   const activeStyle = { backgroundColor: "#F0F0F0" };
 
   options.forEach((option, index) => {
     if (curAnswers[index]) {
-      option.show();
       option.html(curAnswers[index]);
       option.style("background-color", activeStyle.backgroundColor);
       option.mouseClicked(setupOptionClicked(curAnswers[index]));
+      option.show();
     } else {
       option.hide();
     }
@@ -118,7 +117,6 @@ function setup() {
 
   options = [option1, option2, option3, option4, option5, option6];
 
-  frameCount = 0;
   nextQuestion();
 }
 
@@ -144,7 +142,6 @@ function draw() {
     option5.hide();
     option6.hide();
 
-    console.log("here!")
     textFont("Arial");
     textWrap(WORD);
     textSize(35);

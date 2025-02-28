@@ -373,7 +373,7 @@ function calculateFortunePoints() {
 
 function calculateLovePoints() {
   let lovePoints = clamp(0, Math.floor(parseInt(inputUniqueSpouseTraits.value()) / 3), 9);
-  if (inputGenerations.value() >= 10) {
+  if (checkLoveTenthPoint.checked()) {
     lovePoints++;
   }
   return lovePoints;
