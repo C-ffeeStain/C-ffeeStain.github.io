@@ -56,96 +56,106 @@ let inputSSPenalty;
 
 let btnSave;
 let btnLoad;
+let btnReset;
+
+let captionP;
+let captionA;
 
 const clamp = (min, val, max) => Math.min(Math.max(val, min), max);
 
-function setup() {
-  createCanvas(850, 1150);
-
-  textFont("Monospace");
-  textSize(25);
-
-  // Family
-
+function familySetup() {
   inputGenerations = createInput("0", "number");
   inputGenerations.position(20, 45);
   inputGenerations.size(35);
 
   checkFamilyTenthPoint = createCheckbox(" 10 kids in 1 generation");
   checkFamilyTenthPoint.position(20, 75);
+}
 
-  // Creative
-
+function creativeSetup() {
   inputMemorials = createInput("0", "number");
   inputMemorials.position(20, 135);
   inputMemorials.size(35);
 
   checkCreativeTenthPoint = createCheckbox(" 2/3 creative aspirations done by 1 Sim");
   checkCreativeTenthPoint.position(20, 165)
+}
 
+function fortuneSetup() {
   inputHouseholdWorth = createInput("0", "number");
   inputHouseholdWorth.position(20, 225);
   inputHouseholdWorth.size(90);
 
   checkFortuneTenthPoint = createCheckbox(" ALL business perks");
   checkFortuneTenthPoint.position(20, 255);
+}
 
-  // Love
-
+function loveSetup() {
   inputUniqueSpouseTraits = createInput("0", "number");
   inputUniqueSpouseTraits.position(20, 315);
   inputUniqueSpouseTraits.size(35);
 
   checkLoveTenthPoint = createCheckbox("Bear the 10th heir")
   checkLoveTenthPoint.position(20, 355);
+}
 
-  // Knowledge
-
+function knowledgeSetup() {
   inputMaxedSkills = createInput("0", "number");
   inputMaxedSkills.position(20, 435);
   inputMaxedSkills.size(35);
 
   checkKnowledgeTenthPoint = createCheckbox(" ALL skills maxed");
   checkKnowledgeTenthPoint.position(20, 465);
+}
 
-  // Athletic
-
+function athleticSetup() {
   inputAspirationsDone = createInput("0", "number");
   inputAspirationsDone.position(20, 530);
   inputAspirationsDone.size(35);
 
   checkAthleticTenthPoint = createCheckbox(" ALL aspirations completed");
   checkAthleticTenthPoint.position(20, 560);
+}
 
-  // Popularity
-
+function popularitySetup() {
   inputMedalPoints = createInput("0", "number");
   inputMedalPoints.position(20, 625);
   inputMedalPoints.size(35);
 
   checkPopularityTenthPoint = createCheckbox("Have a single Sim get a gold medal in all the<br>different types of parties AND a gold medal on<br>a date");
   checkPopularityTenthPoint.position(20, 655);
+}
 
-  // Deviance
-
+function devianceSetup() {
   inputYouthPotions = createInput("0", "number");
   inputYouthPotions.position(20, 750)
   inputYouthPotions.size(35)
+}
 
-  // Parenthood
-
+function parentSetup() {
   checkAllCharTraits = createCheckbox("Get ALL upbringing traits (both positive &<br>negative) at some point in the family");
   checkAllCharTraits.position(15, 815);
 
   checkSingleSimAllCharTraits = createCheckbox("Have a single Sim grow up with all 5 traits<br>manifesting (they don't all have to be positive)");
   checkSingleSimAllCharTraits.position(15, 860);
+}
 
-  // Food
+function seasonsSetup() {
+  checkFiveTradHoliday = createCheckbox("Have 1 of the 2 holidays reach 5 traditions");
+  checkFiveTradHoliday.position(15, 940);
 
+  checkGoldCelebration = createCheckbox("Have an heir reach gold level celebration<br>status for a 5-tradition family holiday.");
+  checkGoldCelebration.position(15, 965);
+
+  checkActiveMembersHoliday = createCheckbox("Have all active members of your household<br>reach gold level celebration status for a family<br>holiday");
+  checkActiveMembersHoliday.position(15, 1007);
+}
+
+function foodSetup() {
   checkFridgeStove = createCheckbox("Buy and fully upgrade most expensive fridge &<br>stove");
   checkFridgeStove.position(435, 40);
 
-  checkBakedAlaska = createCheckbox("Make a highest quality version of Baked<br>Alaska (or equivalent dish)");
+  checkBakedAlaska = createCheckbox("Make a highest quality version of Baked Alaska<br>(or equivalent dish)");
   checkBakedAlaska.position(435, 85);
 
   checkMaxedCookingAndCo = createCheckbox("Max cooking, baking (Get to Work), gourmet<br>cooking, and mixology skills");
@@ -169,11 +179,11 @@ function setup() {
   checkMaxQMDParty = createCheckbox("Create a max-quality meal/drink for a Sim<br>during a single date");
   checkMaxQMDParty.position(435, 345);
 
-  checkMaxQDorFDate = createCheckbox("Create and serve a max-quality party-sized<br>meal and a max-quality drink during a single party");
+  checkMaxQDorFDate = createCheckbox("Create and serve a max-quality party-sized meal<br>and a max-quality drink during a single party");
   checkMaxQDorFDate.position(435, 395);
+}
 
-  // Nature
-
+function natureSetup() {
   checkAllDeathTypes = createCheckbox("Have all death types occur on the legacy lot")
   checkAllDeathTypes.position(430, 470);
 
@@ -184,7 +194,7 @@ function setup() {
   checkCareerTracks = createCheckbox("Reach the top level of each career track");
   checkCareerTracks.position(430, 530);
 
-  checkBranchCareerTracks = createCheckbox("Reach the top level of both branches of<br>every career track");
+  checkBranchCareerTracks = createCheckbox("Reach the top level of both branches of every<br>career track");
   checkBranchCareerTracks.position(430, 560);
 
   checkEmotionalPaintingTypes = createCheckbox("Collect every single emotional painting type");
@@ -192,36 +202,25 @@ function setup() {
 
   checkConsumableAspirationRewards = createCheckbox("Have every consumable aspiration reward on the<br>lot");
   checkConsumableAspirationRewards.position(430, 640);
+}
 
-  // Seasons
-
-  checkFiveTradHoliday = createCheckbox("Have 1 of the 2 holidays reach 5 traditions");
-  checkFiveTradHoliday.position(15, 940);
-
-  checkGoldCelebration = createCheckbox("Have an heir reach gold level celebration<br>status for a 5-tradition family holiday.");
-  checkGoldCelebration.position(15, 965);
-
-  checkActiveMembersHoliday = createCheckbox("Have all active members of your household<br>reach gold level celebration status for a family<br>holiday");
-  checkActiveMembersHoliday.position(15, 1007);
-
-  // Discover University
-
+function universitySetup() {
   selectChosenUniversity = createSelect(false);
   selectChosenUniversity.option("Either");
   selectChosenUniversity.option("Foxbury Institute");
   selectChosenUniversity.option("University of Britechester");
   selectChosenUniversity.position(450, 720);
+}
 
-  // Handicaps
-
+function handicapSetup() {
   selectHandicap = createSelect(false);
   selectHandicap.option("Normal");
   selectHandicap.option("Extreme Start");
   selectHandicap.option("Ultra Extreme Start")
   selectHandicap.position(450, 810)
+}
 
-  // Penalties
-
+function penaltySetup() {
   inputPoPenalty = createInput("0", "number");
   inputPoPenalty.position(435, 900);
   inputPoPenalty.size(35);
@@ -233,14 +232,92 @@ function setup() {
   inputSSPenalty = createInput("0", "number");
   inputSSPenalty.position(435, 970);
   inputSSPenalty.size(35);
+}
+
+function setup() {
+  createCanvas(850, 1150);
+
+  textFont("Monospace");
+  textSize(25);
+
+  familySetup();
+  creativeSetup();
+  fortuneSetup();
+  loveSetup();
+  knowledgeSetup();
+  athleticSetup();
+  popularitySetup();
+  devianceSetup();
+  parentSetup();
+  seasonsSetup();
+  foodSetup();
+  natureSetup();
+  universitySetup();
+  handicapSetup();
+  penaltySetup();
 
   btnSave = createButton("Save");
   btnSave.mouseClicked(saveValues);
+  btnSave.position(300, 1100);
 
-  btnLoad = createButton("Load from Device");
+  btnLoad = createButton("Load");
   btnLoad.mouseClicked(loadValues);
+  btnLoad.position(510, 1080);
+
+  btnReset = createButton("Reset ALL Values")
+  btnReset.mouseClicked(resetValues);
+  btnReset.position(510, 1120);
+
+  captionP = createP("Want more specific tracking of traits, aspirations, etc.? Try <a target=\"_blank\" href=\"../legacy-challenge-collecting-helper/index.html\">this.</a>");
 
   loadValues();
+}
+
+function resetValues() {
+  if (!confirm("Are you sure? You will lose all your saved values.")) {
+    return;
+  }
+  inputGenerations.value("0");
+  checkFamilyTenthPoint.checked(false);
+  inputMemorials.value("0");
+  checkCreativeTenthPoint.checked(false);
+  inputHouseholdWorth.value("0");
+  checkFortuneTenthPoint.checked(false);
+  inputUniqueSpouseTraits.value("0");
+  checkLoveTenthPoint.checked(false);
+  inputMaxedSkills.value("0");
+  checkKnowledgeTenthPoint.checked(false);
+  inputAspirationsDone.value("0");
+  checkAthleticTenthPoint.checked(false);
+  checkAllDeathTypes.checked(false);
+  inputCollectionsCompleted.value("0");
+  checkCareerTracks.checked(false);
+  checkBranchCareerTracks.checked(false);
+  checkEmotionalPaintingTypes.checked(false);
+  checkConsumableAspirationRewards.checked(false);
+  checkFridgeStove.checked(false);
+  checkBakedAlaska.checked(false);
+  checkMaxedCookingAndCo.checked(false);
+  checkBothFoodAsposSingleSim.checked(false);
+  checkFatSim.checked(false);
+  checkFamilyDinner.checked(false);
+  checkTopOfFoodCareerBranches.checked(false);
+  checkFreshIngrMeal.checked(false);
+  checkMaxQMDParty.checked(false);
+  checkMaxQDorFDate.checked(false);
+  inputMedalPoints.value("0");
+  checkPopularityTenthPoint.checked(false);
+  inputYouthPotions.value("0");
+  checkAllCharTraits.checked(false);
+  checkSingleSimAllCharTraits.checked(false);
+  checkFiveTradHoliday.checked(false);
+  checkGoldCelebration.checked(false);
+  checkActiveMembersHoliday.checked(false);
+  selectChosenUniversity.selected("Either");
+  selectHandicap.selected("Normal");
+  inputPoPenalty.value("0");
+  inputPlPenalty.value("0");
+  inputSSPenalty.value("0");
 }
 
 function saveValues() {
