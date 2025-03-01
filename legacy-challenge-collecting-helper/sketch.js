@@ -202,7 +202,7 @@ function setup() {
       "Animal Enthusiast",
       "Lactose Intolerant"
     ],
-    "Eco Living": [
+    "Eco Lifestyle": [
       "Freegan",
       "Green Fiend",
       "Maker",
