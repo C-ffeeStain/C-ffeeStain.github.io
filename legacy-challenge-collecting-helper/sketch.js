@@ -767,6 +767,7 @@ function selectButtonClicked() {
       if (packSkills != null) {
         shown.skills = sort(shown.skills.concat(packSkills));
       }
+      console.log(packTraits);
       if (packTraits != null) {
         shown.traits = sort(shown.traits.concat(packTraits));
       }
