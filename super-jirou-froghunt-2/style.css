@@ -1,0 +1,81 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+canvas {
+  display: block;
+}
+
+button {
+  font-size: 20px;
+}
+
+#settingsBtn {
+  background: transparent;
+  border: none;
+  background-image: url("data/images/ui/settingsUnselected.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#settingsBtn:hover {
+  background-image: url("data/images/ui/settingsSelected.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#settingsBtn:active {
+  background-image: url("data/images/ui/settingsActive.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#playBtn {
+  background: transparent;
+  border: none;
+  background-image: url("data/images/ui/playUnselected.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#playBtn:hover {
+  background-image: url("data/images/ui/playSelected.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#playBtn:active {
+  background-image: url("data/images/ui/playActive.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#quitBtn {
+  background: transparent;
+  border: none;
+  background-image: url("data/images/ui/quitUnselected.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#quitBtn:hover {
+  background-image: url("data/images/ui/quitSelected.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#quitBtn:active {
+  background-image: url("data/images/ui/quitActive.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}

@@ -1,0 +1,18 @@
+-- CAN DO NOW --
+Add game over screen
+Add credits screen
+
+-- CAN'T DO YET --
+Balance enemy speed ramping - NEED PLAYTESTERS
+Add character select assets - NOT RECEIVED YET
+Add character game assets - NOT RECEIVED YET
+Add ground assets - NOT RECEIVED YET
+Add background assets - NOT RECEIVED YET
+
+-- DONE --
+Play jump sound effect when jumping
+Make snakes hiss on screen
+Add frogs to collect
+Play frog collect sound when touching frog
+Add ravens to duck under
+Make ravens caw on screen
