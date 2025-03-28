@@ -706,9 +706,9 @@ function detectCollisionWith(enemyData) {
   }
 
   // stroke(0, 0, 0, 255);
-  rectMode(CORNERS)
+  // rectMode(CORNERS)
   // rect(enemyHitbox.topLeft[0], enemyHitbox.topLeft[1], enemyHitbox.botRight[0], enemyHitbox.botRight[1])
-  rect(playerHitbox.topLeft[0], playerHitbox.topLeft[1], playerHitbox.botRight[0], playerHitbox.botRight[1]);
+  // rect(playerHitbox.topLeft[0], playerHitbox.topLeft[1], playerHitbox.botRight[0], playerHitbox.botRight[1]);
 
   return false;
 }
