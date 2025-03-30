@@ -1,5 +1,4 @@
 -- CAN DO NOW --
-Add game over screen
 Add credits screen
 
 -- CAN'T DO YET --
@@ -16,3 +15,4 @@ Add frogs to collect
 Play frog collect sound when touching frog
 Add ravens to duck under
 Make ravens caw on screen
+Add game over screen

@@ -21,15 +21,13 @@ let cloudSpeed;
 let grassBlades;
 let grassSpeed;
 
-let snakes;
+let snake;
+let raven;
 let enemySpeed;
-
-let ravens;
-
 let currentEnemyType;
 let enemyTypes;
 
-let frogs;
+let frog;
 let frogSpeed;
 let frogTimer;
 let frogsCollectedThisRun
@@ -42,7 +40,7 @@ let selectedCharacter;
 let characterVariants;
 let characterUnlockThresholds;
 
-let gameIsOver;
+let gameOver;
 let gameOverBtns;
 
 let settings;
@@ -273,7 +271,7 @@ function setup() {
   enemyTypes = ["raven", "snake"];
 
   currentEnemyType = enemyTypes[Math.floor(random(2))];
-  gameIsOver = false;
+  gameOver = false;
 
   characterUnlockThresholds = {
     jirou: 0,
@@ -353,7 +351,7 @@ function setup() {
       y: random(-30, 5)
     }
   ];
-  snakes = [{
+  snake = {
     x: 0,
     y: player.y - 25,
     animFrame: 0,
@@ -362,10 +360,10 @@ function setup() {
       botRight: [70, 65],
     },
     hissed: false
-  }];
+  };
 
-  enemySpeed = 5;
-  ravens = [{
+  enemySpeed = 4;
+  raven = {
     x: 0,
     y: player.y - 125,
     animFrame: 0,
@@ -374,9 +372,9 @@ function setup() {
       botRight: [70, 65],
     },
     cawed: false
-  }];
+  };
 
-  frogs = [{
+  frog = {
     x: 300,
     y: player.y - 25,
     animFrame: 0,
@@ -384,7 +382,7 @@ function setup() {
       topLeft: [14, 10],
       botRight: [50, 50]
     },
-  }];
+  };
   frogTimer = 0;
   frogSpeed = 2;
   frogsCollectedThisRun = 0;
@@ -402,7 +400,7 @@ function setup() {
     
     totalFrogsCollected += frogsCollectedThisRun;
     frogsCollectedThisRun = 0;
-    gameIsOver = false;
+    gameOver = false;
     gameOverBtns.mainMenuBtn.hide();
     gameOverBtns.newRunBtn.hide();
   });
@@ -413,7 +411,7 @@ function setup() {
   gameOverBtns.newRunBtn.mouseClicked(() => {
     totalFrogsCollected += frogsCollectedThisRun;
     frogsCollectedThisRun = 0;
-    gameIsOver = false;
+    gameOver = false;
     gameOverBtns.mainMenuBtn.hide();
     gameOverBtns.newRunBtn.hide();
     
@@ -543,22 +541,18 @@ function startGame() {
   counter = 0;
   score = 0;
 
-  enemySpeed = 5;
+  enemySpeed = 4;
   cloudSpeed = 2;
 
   player.y = player.baseY;
   player.state = 0;
   player.animFrame = 0;
 
-  snakes.forEach(snakeData => {
-    snakeData.x = canvasDimensions.width + 100;
-    snakeData.animFrame = 0;
-  });
+  snake.x = canvasDimensions.width + 100;
+  snake.animFrame = 0;
 
-  ravens.forEach(ravenData => {
-    ravenData.x = canvasDimensions.width + 100;
-    ravenData.animFrame = 0;
-  });
+  raven.x = canvasDimensions.width + 100;
+  raven.animFrame = 0;
 
   clouds.forEach(cloudData => {
     cloudData.variant = Math.floor(random(0, 4));
@@ -569,12 +563,10 @@ function startGame() {
   screenTransition("game");
 }
 
-function gameLogic() {
-  counter++;
-
+function iteratePlayer() {
   player.velocity *= 0.98;
   player.y += player.velocity;
-  if (!gameIsOver) {
+  if (!gameOver) {
     if (player.y < player.baseY) {
       player.state = 1;
     } else if (keyIsDown(DOWN_ARROW) || keyIsDown(83) /* s key */) {
@@ -597,86 +589,88 @@ function gameLogic() {
       player.animFrame++;
     }
   }
+}
 
-
-  snakes.forEach(snakeData => {
-    if (currentEnemyType == "snake" && !gameIsOver) {
-      snakeData.x -= enemySpeed;
-      if (counter % 6 == 0) {
-        snakeData.animFrame++;
-      }
-      if (snakeData.x < -100) {
-        snakeData.animFrame = 0;
-        snakeData.x = canvasDimensions.width + random(0, 50);
-        snakeData.hissed = false;
-        currentEnemyType = enemyTypes[Math.floor(random(2))];
-      } else if (detectCollisionWith(snakeData)) {
-        gameOver();
-      }
-
-      if (!snakeData.hissed && snakeData.x < canvasDimensions.width) {
-        if (random(100) < 5) {
-          soundEffects.snakeHiss.play();
-          snakeData.hissed = true;
-        }
-      }
-    }
-    drawSnake(snakeData.x, snakeData.y, 70, snakeData.animFrame);
-  });
-
-  ravens.forEach(ravenData => {
-    if (currentEnemyType == "raven" && !gameIsOver) {
-      ravenData.x -= enemySpeed;
-      if (counter % 6 == 0) {
-        ravenData.animFrame++;
-      }
-      if (ravenData.x < -100) {
-        ravenData.animFrame = 0;
-        ravenData.x = canvasDimensions.width + random(0, 50);
-        if (Math.floor(random(2)) == 1) {
-          ravenData.y = player.y - 15;
-        }
-        ravenData.cawed = false;
-        currentEnemyType = enemyTypes[Math.floor(random(2))];
-      } else if (detectCollisionWith(ravenData)) {
-        gameOver();
-      }
-
-      if (!ravenData.cawed && ravenData.x < canvasDimensions.width) {
-        if (random(100) < 5) {
-          soundEffects.hawkScreech.play();
-          ravenData.cawed = true;
-        }
-      }  
-    }
-    drawRaven(ravenData.x, ravenData.y, 70, ravenData.animFrame);
-  })
-
-  frogs.forEach(frogData => {
-    if (frogTimer > 0) {
+function iterateFrogs() {
+  if (frogTimer > 0) {
       frogTimer--;
-    } else if (!gameIsOver) {
-      frogData.x -= frogSpeed;
-      if (counter % 5 == 0) frogData.animFrame++;
+    } else if (!gameOver) {
+      frog.x -= frogSpeed;
+      if (counter % 5 == 0) frog.animFrame++;
     }
-    if (frogData.x < 0) {
-      frogData.x = canvasDimensions.width + 150;
-      frogData.animFrame = 0;
+    if (frog.x < 0) {
+      frog.x = canvasDimensions.width + 150;
+      frog.animFrame = 0;
       frogTimer = Math.floor(random(240));
     }
 
-    if (detectCollisionWith(frogData)) {
-      frogData.x = -100;
+    if (detectCollisionWith(frog)) {
+      frog.x = -100;
       frogsCollectedThisRun++;
       soundEffects.collectFrog.play();
     }
 
-    drawFrog(frogData.x, frogData.y, 65, frogData.animFrame);
-  });
+    drawFrog(frog.x, frog.y, 65, frog.animFrame);
 }
 
-function gameOver() {
-  gameIsOver = true;
+function iterateEnemies() {
+  if (currentEnemyType == "snake" && !gameOver) {
+      snake.x -= enemySpeed;
+      if (counter % 6 == 0) {
+        snake.animFrame++;
+      }
+      if (snake.x < -100) {
+        snake.animFrame = 0;
+        snake.x = canvasDimensions.width + random(0, 50);
+        snake.hissed = false;
+        currentEnemyType = enemyTypes[Math.floor(random(2))];
+      } else if (detectCollisionWith(snake)) {
+        gameOver = true;
+      }
+
+      if (!snake.hissed && snake.x < canvasDimensions.width) {
+        if (random(100) < 5) {
+          soundEffects.snakeHiss.play();
+          snake.hissed = true;
+        }
+      }
+    }
+    drawSnake(snake.x, snake.y, 70, snake.animFrame);
+
+    if (currentEnemyType == "raven" && !gameOver) {
+      raven.x -= enemySpeed;
+      if (counter % 6 == 0) {
+        raven.animFrame++;
+      }
+      if (raven.x < -100) {
+        raven.animFrame = 0;
+        raven.x = canvasDimensions.width + random(0, 50);
+        raven.y = player.y - 105;
+        if (Math.floor(random(2)) != 1) {
+          raven.y += 90;
+        }
+        raven.cawed = false;
+        currentEnemyType = enemyTypes[Math.floor(random(2))];
+      } else if (detectCollisionWith(raven)) {
+        gameOver = true;
+      }
+
+      if (!raven.cawed && raven.x < canvasDimensions.width) {
+        if (random(100) < 5) {
+          soundEffects.hawkScreech.play();
+          raven.cawed = true;
+        }
+      }  
+    }
+    drawRaven(raven.x, raven.y, 70, raven.animFrame);
+}
+
+function gameLogic() {
+  counter++;
+
+  iteratePlayer();
+  iterateEnemies();
+  iterateFrogs();
 }
 
 /**
@@ -766,7 +760,7 @@ function draw() {
       rect(0, canvasDimensions.height - 50, canvasDimensions.width, 50);
       fill(255, 255, 255);
       clouds.forEach(cloudData => {
-        if (!gameIsOver) {
+        if (!gameOver) {
           cloudData.x -= cloudSpeed;
           if (cloudData.x < -260) {
             cloudData.variant = Math.floor(random(0, 4));
@@ -825,13 +819,15 @@ function draw() {
         screenObjects.characterSelect.dewBtn.position().x,
         237
       );
+      textAlign(LEFT, CENTER);
+      text(`Total Frogs Collected: ${totalFrogsCollected}`, 10, canvasDimensions.height - 15);
       break;
     default:
       console.error("invalid screen!!!! do better");
       break;
   }
 
-  if (gameIsOver) {
+  if (gameOver) {
     gameOverBtns.mainMenuBtn.show();
     gameOverBtns.newRunBtn.show();
 
@@ -851,7 +847,7 @@ function draw() {
 
 function keyPressed() {
   if (key == " " && player.y == player.baseY) {
-    player.velocity -= 13;
+    player.velocity -= 14.5;
     player.state = 1;
     soundEffects.jirouJump.play();
   }
