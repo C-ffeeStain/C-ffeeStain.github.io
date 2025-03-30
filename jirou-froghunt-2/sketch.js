@@ -3,7 +3,7 @@ let customFont;
 
 let screen;
 let sprites;
-let sfx;
+let soundEffects;
 let music;
 let screenObjects;
 let score;
@@ -11,13 +11,7 @@ let counter;
 
 let titleString;
 
-let playerX;
-let playerY;
-let playerSize;
-let basePlayerY;
-let playerVel;
-let playerState; // 0 = running, 1 = jumping, 2 = ducking
-let playerAnimFrame
+let player;
 
 let gravity;
 
@@ -206,7 +200,7 @@ function preload() {
     clouds: loadImage("data/images/clouds.png"),
     logo: loadImage("data/images/ui/logo.png"),
   };
-  sfx = {
+  soundEffects = {
     collectFrog: loadSound("data/sfx/collectFrog.wav"),
     hawkScreech: loadSound("data/sfx/hawkScreech.wav"),
     jirouJump: loadSound("data/sfx/jirouJump.wav"),
@@ -232,11 +226,11 @@ function preload() {
 function setupSfx(buttons) {
   buttons.forEach(button => {
     button.addEventListener('mouseover', function () {
-      sfx.mainMenuSel.play();
+      soundEffects.mainMenuSel.play();
     });
 
     button.addEventListener('click', function () {
-      sfx.mainMenuClk.play();
+      soundEffects.mainMenuClk.play();
     });
   });
 }
@@ -261,7 +255,7 @@ function loadGame() {
   for (const [_, soundFile] of Object.entries(music)) {
     soundFile.setVolume(settings.musicVolume / 100);
   }
-  for (const [_, soundFile] of Object.entries(sfx)) {
+  for (const [_, soundFile] of Object.entries(soundEffects)) {
     soundFile.setVolume(settings.sfxVolume / 100);
   }
 }
@@ -318,11 +312,15 @@ function setup() {
 
   counter = 0;
   score = counter;
-  playerSize = 40;
-  playerX = 25;
-  playerY = canvasDimensions.height - 70;
-  basePlayerY = playerY;
-  playerVel = 0;
+  player = {
+    x: 25,
+    y: canvasDimensions.height - 70,
+    baseY: canvasDimensions.height - 70,
+    velocity: 0,
+    size: 40,
+    state: 0, // 0 = running, 1 = jumping, 2 = ducking
+    animFrame: 0
+  };
   gravity = 0.75;
   offsetTables = {
     cloud: [
@@ -357,7 +355,7 @@ function setup() {
   ];
   snakes = [{
     x: 0,
-    y: playerY - 25,
+    y: player.y - 25,
     animFrame: 0,
     hitboxOffsets: {
       topLeft: [4, 37],
@@ -369,7 +367,7 @@ function setup() {
   enemySpeed = 5;
   ravens = [{
     x: 0,
-    y: playerY - 125,
+    y: player.y - 125,
     animFrame: 0,
     hitboxOffsets: {
       topLeft: [1, 5],
@@ -380,7 +378,7 @@ function setup() {
 
   frogs = [{
     x: 300,
-    y: playerY - 25,
+    y: player.y - 25,
     animFrame: 0,
     hitboxOffsets: {
       topLeft: [14, 10],
@@ -548,9 +546,9 @@ function startGame() {
   enemySpeed = 5;
   cloudSpeed = 2;
 
-  playerY = basePlayerY;
-  playerState = 0;
-  playerAnimFrame = 0;
+  player.y = player.baseY;
+  player.state = 0;
+  player.animFrame = 0;
 
   snakes.forEach(snakeData => {
     snakeData.x = canvasDimensions.width + 100;
@@ -574,21 +572,21 @@ function startGame() {
 function gameLogic() {
   counter++;
 
-  playerVel *= 0.98;
-  playerY += playerVel;
+  player.velocity *= 0.98;
+  player.y += player.velocity;
   if (!gameIsOver) {
-    if (playerY < basePlayerY) {
-      playerState = 1;
+    if (player.y < player.baseY) {
+      player.state = 1;
     } else if (keyIsDown(DOWN_ARROW) || keyIsDown(83) /* s key */) {
-      playerState = 2;
+      player.state = 2;
     } else {
-      playerState = 0;
+      player.state = 0;
     }
-    if (playerY > basePlayerY) {
-      playerVel = 0;
-      playerY = basePlayerY;
+    if (player.y > player.baseY) {
+      player.velocity = 0;
+      player.y = player.baseY;
     }
-    playerVel += gravity;
+    player.velocity += gravity;
 
     if (counter % 6 == 0) {
       enemySpeed += 0.01;
@@ -596,7 +594,7 @@ function gameLogic() {
 
       frogSpeed = enemySpeed / 3;
     } else if (counter % 6 == 0) {
-      playerAnimFrame++;
+      player.animFrame++;
     }
   }
 
@@ -618,7 +616,7 @@ function gameLogic() {
 
       if (!snakeData.hissed && snakeData.x < canvasDimensions.width) {
         if (random(100) < 5) {
-          sfx.snakeHiss.play();
+          soundEffects.snakeHiss.play();
           snakeData.hissed = true;
         }
       }
@@ -636,7 +634,7 @@ function gameLogic() {
         ravenData.animFrame = 0;
         ravenData.x = canvasDimensions.width + random(0, 50);
         if (Math.floor(random(2)) == 1) {
-          ravenData.y = playerY - 15;
+          ravenData.y = player.y - 15;
         }
         ravenData.cawed = false;
         currentEnemyType = enemyTypes[Math.floor(random(2))];
@@ -646,7 +644,7 @@ function gameLogic() {
 
       if (!ravenData.cawed && ravenData.x < canvasDimensions.width) {
         if (random(100) < 5) {
-          sfx.hawkScreech.play();
+          soundEffects.hawkScreech.play();
           ravenData.cawed = true;
         }
       }  
@@ -670,7 +668,7 @@ function gameLogic() {
     if (detectCollisionWith(frogData)) {
       frogData.x = -100;
       frogsCollectedThisRun++;
-      sfx.collectFrog.play();
+      soundEffects.collectFrog.play();
     }
 
     drawFrog(frogData.x, frogData.y, 65, frogData.animFrame);
@@ -721,15 +719,15 @@ function drawRaven(x, y, size, animFrame) {
 
 function detectCollisionWith(enemyData) {
   let playerHitbox = {
-    topLeft: [playerX + 2, playerY],
-    botRight: [playerX + playerSize, playerY + playerSize],
+    topLeft: [player.x + 2, player.y],
+    botRight: [player.x + player.size, player.y + player.size],
   };
   let enemyHitbox = {
     topLeft: [enemyData.x + enemyData.hitboxOffsets.topLeft[0], enemyData.y + enemyData.hitboxOffsets.topLeft[1]],
     botRight: [enemyData.x + enemyData.hitboxOffsets.botRight[0], enemyData.y + enemyData.hitboxOffsets.botRight[1]],
   };
 
-  if (playerState == 2) playerHitbox.topLeft[1] += 20;
+  if (player.state == 2) playerHitbox.topLeft[1] += 20;
 
   let inRangeX = (enemyHitbox.topLeft[0] < playerHitbox.botRight[0])
     && (enemyHitbox.botRight[0] > playerHitbox.topLeft[0]);
@@ -780,7 +778,7 @@ function draw() {
       });
 
       gameLogic();
-      copy(sprites.characters[selectedCharacter], 95 * (playerAnimFrame % 4), 95 * playerState, 95, 95, playerX, playerY, playerSize, playerSize);
+      copy(sprites.characters[selectedCharacter], 95 * (player.animFrame % 4), 95 * player.state, 95, 95, player.x, player.y, player.size, player.size);
       text(frogsCollectedThisRun, 780, 10);
       break;
     case "settings":
@@ -796,7 +794,7 @@ function draw() {
       for (const [_, soundFile] of Object.entries(music)) {
         soundFile.setVolume(settings.musicVolume / 100);
       }
-      for (const [_, soundFile] of Object.entries(sfx)) {
+      for (const [_, soundFile] of Object.entries(soundEffects)) {
         soundFile.setVolume(settings.sfxVolume / 100);
       }
       break;
@@ -815,19 +813,16 @@ function draw() {
       if (screenObjects.characterSelect.milkBtn.attribute("disabled") == "") text(`${characterUnlockThresholds.milk} Frogs\nTo Unlock`,
         screenObjects.characterSelect.milkBtn.size().width / 2 +
         screenObjects.characterSelect.milkBtn.position().x,
-        // textWidth("To Unlock"),
         237
       );
       if (screenObjects.characterSelect.ashBtn.attribute("disabled") == "") text(`${characterUnlockThresholds.ash} Frogs\nTo Unlock`,
         screenObjects.characterSelect.ashBtn.size().width / 2 +
         screenObjects.characterSelect.ashBtn.position().x,
-        // textWidth("To Unlock"),
         237
       );
       if (screenObjects.characterSelect.dewBtn.attribute("disabled") == "") text(`${characterUnlockThresholds.dew} Frogs\nTo Unlock`,
         screenObjects.characterSelect.dewBtn.size().width / 2 +
         screenObjects.characterSelect.dewBtn.position().x,
-        // textWidth("To Unlock"),
         237
       );
       break;
@@ -840,7 +835,7 @@ function draw() {
     gameOverBtns.mainMenuBtn.show();
     gameOverBtns.newRunBtn.show();
 
-    playerVel = 0;
+    player.velocity = 0;
     fill("#99E65F");
     rectMode(CORNER);
     rect(0, 0, canvasDimensions.width, canvasDimensions.height);
@@ -855,9 +850,9 @@ function draw() {
 }
 
 function keyPressed() {
-  if (key == " " && playerY == basePlayerY) {
-    playerVel -= 13;
-    playerState = 1;
-    sfx.jirouJump.play();
+  if (key == " " && player.y == player.baseY) {
+    player.velocity -= 13;
+    player.state = 1;
+    soundEffects.jirouJump.play();
   }
 }
