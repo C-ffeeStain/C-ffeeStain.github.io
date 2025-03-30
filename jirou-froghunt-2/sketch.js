@@ -1,4 +1,5 @@
 let canvasDimensions;
+let customFont;
 
 let screen;
 let sprites;
@@ -46,6 +47,9 @@ let selectedCharacter;
 
 let characterVariants;
 let characterUnlockThresholds;
+
+let gameIsOver;
+let gameOverBtns;
 
 let settings;
 
@@ -106,7 +110,7 @@ function setupCharacterSelect() {
     milkBtn: createButton("Milk"),
     skipBtn: createButton("Skip"),
   };
-  
+
   screenObjects.characterSelect.ashBtn.size(115, 115);
   screenObjects.characterSelect.ashBtn.position(490, 100);
   screenObjects.characterSelect.ashBtn.mouseClicked(() => {
@@ -157,13 +161,12 @@ function setupSettings() {
     backBtn: createButton("Return")
   };
   screenObjects.settings.musicSlider.position(230, 90);
-  
+
   screenObjects.settings.sfxSlider.position(230, 140);
-  
+
   screenObjects.settings.resetProgressBtn.position(600, canvasDimensions.height - 100);
   screenObjects.settings.resetProgressBtn.size(111, 60);
-  screenObjects.settings.resetProgressBtn.mouseClicked(() =>
-  {
+  screenObjects.settings.resetProgressBtn.mouseClicked(() => {
     totalFrogsCollected = 0;
     saveGame();
   });
@@ -181,6 +184,7 @@ function setupSettings() {
 }
 
 function preload() {
+  customFont = loadFont("data/ROCKB.TTF");
   sprites = {
     characters: {
       jirou: loadImage("data/images/players/jirou.png"),
@@ -219,10 +223,10 @@ function preload() {
     skip: loadSound("data/music/Skip music.mp3"),
   };
 
-   settings = {
+  settings = {
     sfxVolume: 100,
     musicVolume: 100
-   };
+  };
 }
 
 function setupSfx(buttons) {
@@ -230,11 +234,11 @@ function setupSfx(buttons) {
     button.addEventListener('mouseover', function () {
       sfx.mainMenuSel.play();
     });
-  
+
     button.addEventListener('click', function () {
       sfx.mainMenuClk.play();
     });
-  });  
+  });
 }
 
 function saveGame() {
@@ -248,7 +252,7 @@ function saveGame() {
 
 function loadGame() {
   const data = getItem("saveData");
-  
+
   if (data != null) {
     settings = data.settings;
     totalFrogsCollected = data.frogsCollected;
@@ -270,17 +274,19 @@ function setup() {
   createCanvas(canvasDimensions.width, canvasDimensions.height);
 
   noSmooth();
+  textFont(customFont);
 
   enemyTypes = ["raven", "snake"];
 
-  currentEnemyType = "raven";
+  currentEnemyType = enemyTypes[Math.floor(random(2))];
+  gameIsOver = false;
 
   characterUnlockThresholds = {
     jirou: 0,
     skip: 1,
     milk: 2,
-    ash: 3, 
-    dew: 4
+    ash: 3,
+    dew: 69
   };
 
   selectedCharacter = "jirou";
@@ -374,11 +380,11 @@ function setup() {
 
   frogs = [{
     x: 300,
-    y: playerY -  25,
+    y: playerY - 25,
     animFrame: 0,
     hitboxOffsets: {
       topLeft: [14, 10],
-      botRight: [50,  50]
+      botRight: [50, 50]
     },
   }];
   frogTimer = 0;
@@ -386,12 +392,43 @@ function setup() {
   frogsCollectedThisRun = 0;
   totalFrogsCollected = 0;
 
+  gameOverBtns = {
+    mainMenuBtn: createButton("Return to Main Menu"),
+    newRunBtn: createButton("Start New Run")
+  };
+
+  gameOverBtns.mainMenuBtn.position(425, 175);
+  gameOverBtns.mainMenuBtn.size(175, 79);
+  gameOverBtns.mainMenuBtn.mouseClicked(() => {
+    screenTransition("title");
+    
+    totalFrogsCollected += frogsCollectedThisRun;
+    frogsCollectedThisRun = 0;
+    gameIsOver = false;
+    gameOverBtns.mainMenuBtn.hide();
+    gameOverBtns.newRunBtn.hide();
+  });
+  gameOverBtns.mainMenuBtn.hide();
+
+  gameOverBtns.newRunBtn.position(195, 175);
+  gameOverBtns.newRunBtn.size(195, 79);
+  gameOverBtns.newRunBtn.mouseClicked(() => {
+    totalFrogsCollected += frogsCollectedThisRun;
+    frogsCollectedThisRun = 0;
+    gameIsOver = false;
+    gameOverBtns.mainMenuBtn.hide();
+    gameOverBtns.newRunBtn.hide();
+    
+    startGame();
+  });
+  gameOverBtns.newRunBtn.hide();
+
   screenObjects = {};
   loadGame();
 
   setupTitleScreen();
   setupCharacterSelect();
-  setupSettings();  
+  setupSettings();
 
   setupSfx([
     document.getElementById('playBtn'),
@@ -416,7 +453,7 @@ function pageClicked() {
 
 function screenTransition(screenName) {
   saveGame();
-  
+
   const OLD_SCREEN = screen;
   switch (OLD_SCREEN) {
     case "title":
@@ -507,14 +544,14 @@ function startGame() {
   // reset game specific variables
   counter = 0;
   score = 0;
-  
+
   enemySpeed = 5;
   cloudSpeed = 2;
 
   playerY = basePlayerY;
   playerState = 0;
   playerAnimFrame = 0;
-  
+
   snakes.forEach(snakeData => {
     snakeData.x = canvasDimensions.width + 100;
     snakeData.animFrame = 0;
@@ -539,31 +576,33 @@ function gameLogic() {
 
   playerVel *= 0.98;
   playerY += playerVel;
-  if (playerY < basePlayerY) {
-    playerState = 1;
-  } else if (keyIsDown(DOWN_ARROW) || keyIsDown(83) /* s key */) {
-    playerState = 2;
-  } else {
-    playerState = 0;
-  }
-  if (playerY > basePlayerY) {
-    playerVel = 0;
-    playerY = basePlayerY;
-  }
-  playerVel += gravity;
+  if (!gameIsOver) {
+    if (playerY < basePlayerY) {
+      playerState = 1;
+    } else if (keyIsDown(DOWN_ARROW) || keyIsDown(83) /* s key */) {
+      playerState = 2;
+    } else {
+      playerState = 0;
+    }
+    if (playerY > basePlayerY) {
+      playerVel = 0;
+      playerY = basePlayerY;
+    }
+    playerVel += gravity;
 
-  if (counter % 3 == 0) {
-    enemySpeed += 0.01;
-    cloudSpeed += 0.01;
+    if (counter % 6 == 0) {
+      enemySpeed += 0.01;
+      cloudSpeed += 0.01;
 
-    frogSpeed = enemySpeed / 3;
-  } else if (counter % 6 == 0) {
-    playerAnimFrame++;
+      frogSpeed = enemySpeed / 3;
+    } else if (counter % 6 == 0) {
+      playerAnimFrame++;
+    }
   }
 
 
   snakes.forEach(snakeData => {
-    if (currentEnemyType == "snake") {
+    if (currentEnemyType == "snake" && !gameIsOver) {
       snakeData.x -= enemySpeed;
       if (counter % 6 == 0) {
         snakeData.animFrame++;
@@ -576,20 +615,19 @@ function gameLogic() {
       } else if (detectCollisionWith(snakeData)) {
         gameOver();
       }
-  
+
       if (!snakeData.hissed && snakeData.x < canvasDimensions.width) {
         if (random(100) < 5) {
           sfx.snakeHiss.play();
           snakeData.hissed = true;
         }
       }
-  
-      drawSnake(snakeData.x, snakeData.y, 70, snakeData.animFrame);
     }
+    drawSnake(snakeData.x, snakeData.y, 70, snakeData.animFrame);
   });
 
   ravens.forEach(ravenData => {
-    if (currentEnemyType == "raven") {
+    if (currentEnemyType == "raven" && !gameIsOver) {
       ravenData.x -= enemySpeed;
       if (counter % 6 == 0) {
         ravenData.animFrame++;
@@ -597,27 +635,29 @@ function gameLogic() {
       if (ravenData.x < -100) {
         ravenData.animFrame = 0;
         ravenData.x = canvasDimensions.width + random(0, 50);
+        if (Math.floor(random(2)) == 1) {
+          ravenData.y = playerY - 15;
+        }
         ravenData.cawed = false;
         currentEnemyType = enemyTypes[Math.floor(random(2))];
       } else if (detectCollisionWith(ravenData)) {
         gameOver();
       }
-  
+
       if (!ravenData.cawed && ravenData.x < canvasDimensions.width) {
         if (random(100) < 5) {
           sfx.hawkScreech.play();
           ravenData.cawed = true;
         }
-      }
-  
-      drawRaven(ravenData.x, ravenData.y, 70, ravenData.animFrame);
+      }  
     }
+    drawRaven(ravenData.x, ravenData.y, 70, ravenData.animFrame);
   })
 
   frogs.forEach(frogData => {
     if (frogTimer > 0) {
       frogTimer--;
-    } else {
+    } else if (!gameIsOver) {
       frogData.x -= frogSpeed;
       if (counter % 5 == 0) frogData.animFrame++;
     }
@@ -638,10 +678,7 @@ function gameLogic() {
 }
 
 function gameOver() {
-  totalFrogsCollected += frogsCollectedThisRun;
-  frogsCollectedThisRun = 0;
-
-  screenTransition("title");
+  gameIsOver = true;
 }
 
 /**
@@ -688,7 +725,7 @@ function detectCollisionWith(enemyData) {
     botRight: [playerX + playerSize, playerY + playerSize],
   };
   let enemyHitbox = {
-    topLeft: [enemyData.x + enemyData.hitboxOffsets.topLeft[0], enemyData.y  + enemyData.hitboxOffsets.topLeft[1]],
+    topLeft: [enemyData.x + enemyData.hitboxOffsets.topLeft[0], enemyData.y + enemyData.hitboxOffsets.topLeft[1]],
     botRight: [enemyData.x + enemyData.hitboxOffsets.botRight[0], enemyData.y + enemyData.hitboxOffsets.botRight[1]],
   };
 
@@ -723,7 +760,7 @@ function draw() {
       copy(sprites.logo, 0, 0, 144, 81, 256, 15, 288, 162)
       break;
     case "game":
-      
+
       copy(sprites.stages[0], 0, 0, 800, 300, 0, 0, 800, 300);
       fill("#1DFF00");
       stroke(0, 0, 0, 0);
@@ -731,11 +768,13 @@ function draw() {
       rect(0, canvasDimensions.height - 50, canvasDimensions.width, 50);
       fill(255, 255, 255);
       clouds.forEach(cloudData => {
-        cloudData.x -= cloudSpeed;
-        if (cloudData.x < -260) {
-          cloudData.variant = Math.floor(random(0, 4));
-          cloudData.x = canvasDimensions.width + random(0, 512);
-          cloudData.y = random(-10, 5);
+        if (!gameIsOver) {
+          cloudData.x -= cloudSpeed;
+          if (cloudData.x < -260) {
+            cloudData.variant = Math.floor(random(0, 4));
+            cloudData.x = canvasDimensions.width + random(0, 512);
+            cloudData.y = random(-10, 5);
+          }
         }
         drawCloud(cloudData.variant, cloudData.x, cloudData.y, 128);
       });
@@ -746,7 +785,7 @@ function draw() {
       break;
     case "settings":
       title("Settings", 400, 40);
-      
+
       textAlign(LEFT, CENTER);
       text("Music Volume", 10, 100);
       text("SFX Volume", 10, 150);
@@ -797,6 +836,22 @@ function draw() {
       break;
   }
 
+  if (gameIsOver) {
+    gameOverBtns.mainMenuBtn.show();
+    gameOverBtns.newRunBtn.show();
+
+    playerVel = 0;
+    fill("#99E65F");
+    rectMode(CORNER);
+    rect(0, 0, canvasDimensions.width, canvasDimensions.height);
+    
+    fill("black");
+    title("Game Over!", 400, 40);
+
+    textAlign(CENTER, CENTER);
+    text(`You collected ${frogsCollectedThisRun} frog(s)!`, 400, 140);
+  }
+
 }
 
 function keyPressed() {
@@ -805,5 +860,4 @@ function keyPressed() {
     playerState = 1;
     sfx.jirouJump.play();
   }
-
 }
