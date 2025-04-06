@@ -15,9 +15,6 @@ let player;
 
 let gravity;
 
-let clouds;
-let cloudSpeed;
-
 let grassBlades;
 let grassSpeed;
 
@@ -71,93 +68,111 @@ function setupTitleScreen() {
   screenObjects.title = {
     playBtn: createButton(""),
     settingsBtn: createButton(""),
-    quitBtn: createButton("")
+    quitBtn: createButton(""),
+    creditsBtn: createButton("")
   };
 
-  screenObjects.title.playBtn.position(122, 205);
-  screenObjects.title.playBtn.size(175, 79);
-  screenObjects.title.playBtn.mouseClicked(() => {
-    screenTransition("characterSelect");
-  });
+  const settingsBtnX = canvasDimensions.width / 2 - 117;
+  const btnOffset = 250;
+  
+  screenObjects.title.playBtn.position(settingsBtnX - btnOffset, 270);
+  screenObjects.title.playBtn.size(233, 105);
+  screenObjects.title.playBtn.mouseClicked(() => screenTransition("characterSelect"));
   screenObjects.title.playBtn.id("playBtn");
 
-  screenObjects.title.settingsBtn.position(312, 205);
-  screenObjects.title.settingsBtn.size(175, 79);
+  screenObjects.title.settingsBtn.position(settingsBtnX, 270);
+  screenObjects.title.settingsBtn.size(233, 105);
   screenObjects.title.settingsBtn.id("settingsBtn");
-  screenObjects.title.settingsBtn.mouseClicked(() => {
-    screenTransition("settings");
-  });
+  screenObjects.title.settingsBtn.mouseClicked(() => screenTransition("settings"));
 
-  screenObjects.title.quitBtn.position(502, 205);
-  screenObjects.title.quitBtn.size(175, 79);
+  screenObjects.title.quitBtn.position(settingsBtnX + btnOffset, 270);
+  screenObjects.title.quitBtn.size(233, 105);
   screenObjects.title.quitBtn.id("quitBtn");
   screenObjects.title.quitBtn.mouseClicked(() => window.close());
+
+  screenObjects.title.creditsBtn.position(canvasDimensions.width - 132, 15);
+  screenObjects.title.creditsBtn.size(117, 53);
+  screenObjects.title.creditsBtn.id("creditsBtn");
+  screenObjects.title.creditsBtn.mouseClicked(() => {
+    if (screen == "title") {
+      screenTransition("credits");
+    } else {
+      screenTransition("title");
+    }
+  })
 }
 
 function setupCharacterSelect() {
   screenObjects.characterSelect = {
-    ashBtn: createButton("Ash"),
-    dewBtn: createButton("Dew"),
-    jirouBtn: createButton("Jirou"),
-    milkBtn: createButton("Milk"),
-    skipBtn: createButton("Skip"),
+    ashBtn: createButton(""),
+    dewBtn: createButton(""),
+    jirouBtn: createButton(""),
+    milkBtn: createButton(""),
+    skipBtn: createButton(""),
   };
 
-  screenObjects.characterSelect.ashBtn.size(115, 115);
-  screenObjects.characterSelect.ashBtn.position(490, 100);
-  screenObjects.characterSelect.ashBtn.mouseClicked(() => {
-    selectedCharacter = "ash";
-    startGame();
-  });
-
-  screenObjects.characterSelect.dewBtn.size(115, 115);
-  screenObjects.characterSelect.dewBtn.position(620, 100);
-  screenObjects.characterSelect.dewBtn.mouseClicked(() => {
-    selectedCharacter = "dew";
-    startGame();
-  });
-
-  screenObjects.characterSelect.jirouBtn.size(115, 115);
-  screenObjects.characterSelect.jirouBtn.position(90, 100);
+  screenObjects.characterSelect.jirouBtn.size(149, 187);
+  screenObjects.characterSelect.jirouBtn.id("jirouBtn");
+  screenObjects.characterSelect.jirouBtn.position(180, canvasDimensions.height - 187);
   screenObjects.characterSelect.jirouBtn.mouseClicked(() => {
     selectedCharacter = "jirou";
     startGame();
   });
-
-  screenObjects.characterSelect.milkBtn.size(115, 115);
-  screenObjects.characterSelect.milkBtn.position(360, 100);
+  
+  screenObjects.characterSelect.skipBtn.size(212, 185);
+  screenObjects.characterSelect.skipBtn.id("skipBtn");
+  screenObjects.characterSelect.skipBtn.position(380, canvasDimensions.height - 185);
+  screenObjects.characterSelect.skipBtn.mouseClicked(() => {
+    selectedCharacter = "skip";
+    startGame();
+  });
+  
+  screenObjects.characterSelect.milkBtn.size(266, 191);
+  screenObjects.characterSelect.milkBtn.id("milkBtn");
+  screenObjects.characterSelect.milkBtn.position(545, canvasDimensions.height - 191);
+  screenObjects.characterSelect.milkBtn.style("z-index: 5;")
   screenObjects.characterSelect.milkBtn.mouseClicked(() => {
     selectedCharacter = "milk";
     startGame();
   });
 
-  screenObjects.characterSelect.skipBtn.size(115, 115);
-  screenObjects.characterSelect.skipBtn.position(230, 100);
-  screenObjects.characterSelect.skipBtn.mouseClicked(() => {
-    selectedCharacter = "skip";
+  screenObjects.characterSelect.ashBtn.size(185, 185);
+  screenObjects.characterSelect.ashBtn.id("ashBtn");
+  screenObjects.characterSelect.ashBtn.position(290, canvasDimensions.height - 174);
+  screenObjects.characterSelect.ashBtn.mouseClicked(() => {
+    selectedCharacter = "ash";
+    startGame();
+  });
+  
+  screenObjects.characterSelect.dewBtn.size(227, 194);
+  screenObjects.characterSelect.dewBtn.id("dewBtn");
+  screenObjects.characterSelect.dewBtn.position(0, canvasDimensions.height - 194);
+  screenObjects.characterSelect.dewBtn.mouseClicked(() => {
+    selectedCharacter = "dew";
     startGame();
   });
 
-  screenObjects.characterSelect.ashBtn.hide();
-  screenObjects.characterSelect.dewBtn.hide();
   screenObjects.characterSelect.jirouBtn.hide();
-  screenObjects.characterSelect.milkBtn.hide();
   screenObjects.characterSelect.skipBtn.hide();
+  screenObjects.characterSelect.dewBtn.hide();
+  screenObjects.characterSelect.ashBtn.hide();
+  screenObjects.characterSelect.milkBtn.hide();
 }
 
 function setupSettings() {
   screenObjects.settings = {
     sfxSlider: createSlider(0, 100, settings.sfxVolume),
     musicSlider: createSlider(0, 100, settings.musicVolume),
-    resetProgressBtn: createButton("Reset Progress"),
-    backBtn: createButton("Return")
+    resetProgressBtn: createButton(""),
+    backBtn: createButton("")
   };
   screenObjects.settings.musicSlider.position(230, 90);
 
   screenObjects.settings.sfxSlider.position(230, 140);
 
   screenObjects.settings.resetProgressBtn.position(600, canvasDimensions.height - 100);
-  screenObjects.settings.resetProgressBtn.size(111, 60);
+  screenObjects.settings.resetProgressBtn.size(175, 79);
+  screenObjects.settings.resetProgressBtn.id("resetProgressBtn");
   screenObjects.settings.resetProgressBtn.mouseClicked(() => {
     totalFrogsCollected = 0;
     saveGame();
@@ -165,6 +180,7 @@ function setupSettings() {
 
   screenObjects.settings.backBtn.position(312, canvasDimensions.height - 100);
   screenObjects.settings.backBtn.size(175, 79);
+  screenObjects.settings.backBtn.id("backBtn")
   screenObjects.settings.backBtn.mouseClicked(() => {
     screenTransition("title");
   });
@@ -187,16 +203,43 @@ function preload() {
     },
     snake: loadImage("data/images/enemies/snake.png"),
     raven: loadImage("data/images/enemies/raven.png"),
-    frog: loadImage("data/images/frog.png"),
-    stages: [
-      loadImage("data/images/bgs/first.png"),
-      loadImage("data/images/bgs/second.png"),
-      loadImage("data/images/bgs/third.png"),
-      loadImage("data/images/bgs/fourth.png"),
-      loadImage("data/images/bgs/fifth.png"),
-    ],
-    clouds: loadImage("data/images/clouds.png"),
-    logo: loadImage("data/images/ui/logo.png"),
+    frogs: {
+      jirou: loadImage("data/images/frogs/jirou.png"),
+      ash: loadImage("data/images/frogs/ash.png"),
+      skip: loadImage("data/images/frogs/skip.png"),
+      milk: loadImage("data/images/frogs/milk.png"),
+      dew: loadImage("data/images/frogs/dew.png"),
+    },
+    stages: {
+      jirou: loadImage("data/images/bgs/jirou.png"),
+      ash: loadImage("data/images/bgs/ash.png"),
+      skip: loadImage("data/images/bgs/skip.png"),
+      milk: loadImage("data/images/bgs/milk.png"),
+      dew: loadImage("data/images/bgs/dew.png"),
+    },
+    ui: {
+      logo: loadImage("data/images/ui/logo.png"),
+      unselected: {
+        jirou: loadImage("data/images/ui/selection/unselected/jirou.png"),
+        ash: loadImage("data/images/ui/selection/unselected/ash.png"),
+        skip: loadImage("data/images/ui/selection/unselected/skip.png"),
+        milk: loadImage("data/images/ui/selection/unselected/milk.png"),
+        dew: loadImage("data/images/ui/selection/unselected/dew.png"),
+      },
+      hovered: {
+        jirou: loadImage("data/images/ui/selection/hovered/jirou.png"),
+        ash: loadImage("data/images/ui/selection/hovered/ash.png"),
+        skip: loadImage("data/images/ui/selection/hovered/skip.png"),
+        milk: loadImage("data/images/ui/selection/hovered/milk.png"),
+        dew: loadImage("data/images/ui/selection/hovered/dew.png"),
+      },
+      locked: {
+        ash: loadImage("data/images/ui/selection/locked/ash.png"),
+        skip: loadImage("data/images/ui/selection/locked/skip.png"),
+        milk: loadImage("data/images/ui/selection/locked/milk.png"),
+        dew: loadImage("data/images/ui/selection/locked/dew.png"),
+      },
+    }
   };
   soundEffects = {
     collectFrog: loadSound("data/sfx/collectFrog.wav"),
@@ -224,10 +267,12 @@ function preload() {
 function setupSfx(buttons) {
   buttons.forEach(button => {
     button.addEventListener('mouseover', function () {
+      if (button.disabled) return;
       soundEffects.mainMenuSel.play();
     });
 
     button.addEventListener('click', function () {
+      if (button.disabled) return;
       soundEffects.mainMenuClk.play();
     });
   });
@@ -261,7 +306,7 @@ function loadGame() {
 function setup() {
   canvasDimensions = {
     width: 800,
-    height: 300
+    height: 450
   };
   createCanvas(canvasDimensions.width, canvasDimensions.height);
 
@@ -274,7 +319,6 @@ function setup() {
   gameOver = false;
 
   characterUnlockThresholds = {
-    jirou: 0,
     skip: 1,
     milk: 2,
     ash: 3,
@@ -313,47 +357,17 @@ function setup() {
   player = {
     x: 25,
     y: canvasDimensions.height - 70,
-    baseY: canvasDimensions.height - 70,
+    baseY: canvasDimensions.height - 205,
     velocity: 0,
-    size: 40,
+    size: 150,
     state: 0, // 0 = running, 1 = jumping, 2 = ducking
     animFrame: 0
   };
   gravity = 0.75;
-  offsetTables = {
-    cloud: [
-      [0, 0],
-      [512, 0],
-      [0, 512],
-      [512, 512],
-    ]
-  };
-  cloudSpeed = 2;
-  clouds = [
-    {
-      variant: random(0, 4),
-      x: random(0, canvasDimensions.width),
-      y: random(-10, 5)
-    },
-    {
-      variant: random(0, 4),
-      x: random(0, canvasDimensions.width),
-      y: random(-10, 5)
-    },
-    {
-      variant: random(0, 4),
-      x: random(0, canvasDimensions.width),
-      y: random(-10, 5)
-    },
-    {
-      variant: random(0, 4),
-      x: random(0, canvasDimensions.width + 100),
-      y: random(-30, 5)
-    }
-  ];
+  
   snake = {
     x: 0,
-    y: player.y - 25,
+    y: player.baseY + 75,
     animFrame: 0,
     hitboxOffsets: {
       topLeft: [4, 37],
@@ -365,7 +379,7 @@ function setup() {
   enemySpeed = 4;
   raven = {
     x: 0,
-    y: player.y - 125,
+    y: player.baseY - 25,
     animFrame: 0,
     hitboxOffsets: {
       topLeft: [1, 5],
@@ -376,11 +390,11 @@ function setup() {
 
   frog = {
     x: 300,
-    y: player.y - 25,
+    y: player.baseY + 80,
     animFrame: 0,
     hitboxOffsets: {
-      topLeft: [14, 10],
-      botRight: [50, 50]
+      topLeft: [5, 15],
+      botRight: [63, 64]
     },
   };
   frogTimer = 0;
@@ -389,12 +403,13 @@ function setup() {
   totalFrogsCollected = 0;
 
   gameOverBtns = {
-    mainMenuBtn: createButton("Return to Main Menu"),
-    newRunBtn: createButton("Start New Run")
+    mainMenuBtn: createButton(""),
+    newRunBtn: createButton("")
   };
 
   gameOverBtns.mainMenuBtn.position(425, 175);
   gameOverBtns.mainMenuBtn.size(175, 79);
+  gameOverBtns.mainMenuBtn.id("mainMenuBtn");
   gameOverBtns.mainMenuBtn.mouseClicked(() => {
     screenTransition("title");
     
@@ -408,6 +423,7 @@ function setup() {
 
   gameOverBtns.newRunBtn.position(195, 175);
   gameOverBtns.newRunBtn.size(195, 79);
+  gameOverBtns.newRunBtn.id("newRunBtn");
   gameOverBtns.newRunBtn.mouseClicked(() => {
     totalFrogsCollected += frogsCollectedThisRun;
     frogsCollectedThisRun = 0;
@@ -426,11 +442,23 @@ function setup() {
   setupCharacterSelect();
   setupSettings();
 
-  setupSfx([
+  const btns = [
     document.getElementById('playBtn'),
     document.getElementById('settingsBtn'),
-    document.getElementById('quitBtn')
-  ]);
+    document.getElementById('quitBtn'),
+    document.getElementById('resetProgressBtn'),
+    document.getElementById('creditsBtn'),
+    document.getElementById('backBtn'),
+    document.getElementById('newRunBtn'),
+    document.getElementById('mainMenuBtn'),
+    document.getElementById('jirouBtn'),
+    document.getElementById('ashBtn'),
+    document.getElementById('dewBtn'),
+    document.getElementById('milkBtn'),
+    document.getElementById('skipBtn'),
+  ];
+
+  setupSfx(btns);
 
   window.addEventListener("click", pageClicked);
 
@@ -456,6 +484,13 @@ function screenTransition(screenName) {
       screenObjects.title.playBtn.hide();
       screenObjects.title.settingsBtn.hide();
       screenObjects.title.quitBtn.hide();
+      if (screenName == "credits") {
+        screenObjects.title.creditsBtn.id("backBtn");
+      } else {
+        screenObjects.title.creditsBtn.hide();
+      }
+      break;
+    case "credits":
       break;
     case "settings":
       screenObjects.settings.sfxSlider.hide();
@@ -485,10 +520,15 @@ function screenTransition(screenName) {
       screenObjects.title.playBtn.show();
       screenObjects.title.settingsBtn.show();
       screenObjects.title.quitBtn.show();
+      screenObjects.title.creditsBtn.id("creditsBtn");
+      screenObjects.title.creditsBtn.show();
 
       titleString = "Jirou Froghunt 2";
 
       if (!music.jirou.isLooping()) music.jirou.loop();
+      break;
+    case "credits":
+      screenObjects.title.creditsBtn.id("backBtn");
       break;
     case "characterSelect":
       screenObjects.characterSelect.jirouBtn.show();
@@ -518,7 +558,7 @@ function screenTransition(screenName) {
         screenObjects.characterSelect.dewBtn.removeAttribute("disabled");
       }
 
-      titleString = "Choose Your Character";
+      titleString = "Choose Your Frogboy";
       break;
     case "settings":
       screenObjects.settings.sfxSlider.show();
@@ -542,7 +582,6 @@ function startGame() {
   score = 0;
 
   enemySpeed = 4;
-  cloudSpeed = 2;
 
   player.y = player.baseY;
   player.state = 0;
@@ -553,12 +592,6 @@ function startGame() {
 
   raven.x = canvasDimensions.width + 100;
   raven.animFrame = 0;
-
-  clouds.forEach(cloudData => {
-    cloudData.variant = Math.floor(random(0, 4));
-    cloudData.x = canvasDimensions.width + random(0, 512);
-    cloudData.y = random(-10, 5);
-  });
 
   screenTransition("game");
 }
@@ -582,10 +615,10 @@ function iteratePlayer() {
 
     if (counter % 6 == 0) {
       enemySpeed += 0.01;
-      cloudSpeed += 0.01;
 
       frogSpeed = enemySpeed / 3;
-    } else if (counter % 6 == 0) {
+    }
+    if (counter % 5 == 0) {
       player.animFrame++;
     }
   }
@@ -596,7 +629,7 @@ function iterateFrogs() {
       frogTimer--;
     } else if (!gameOver) {
       frog.x -= frogSpeed;
-      if (counter % 5 == 0) frog.animFrame++;
+      if (counter % 10 == 0) frog.animFrame++;
     }
     if (frog.x < 0) {
       frog.x = canvasDimensions.width + 150;
@@ -628,11 +661,9 @@ function iterateEnemies() {
         gameOver = true;
       }
 
-      if (!snake.hissed && snake.x < canvasDimensions.width) {
-        if (random(100) < 5) {
+      if (!snake.hissed && snake.x < canvasDimensions.width - 30) {
           soundEffects.snakeHiss.play();
           snake.hissed = true;
-        }
       }
     }
     drawSnake(snake.x, snake.y, 70, snake.animFrame);
@@ -645,9 +676,9 @@ function iterateEnemies() {
       if (raven.x < -100) {
         raven.animFrame = 0;
         raven.x = canvasDimensions.width + random(0, 50);
-        raven.y = player.y - 105;
-        if (Math.floor(random(2)) != 1) {
-          raven.y += 90;
+        raven.y = player.baseY - 25;
+        if (random(2) > 1) {
+          raven.y += 100;
         }
         raven.cawed = false;
         currentEnemyType = enemyTypes[Math.floor(random(2))];
@@ -655,11 +686,9 @@ function iterateEnemies() {
         gameOver = true;
       }
 
-      if (!raven.cawed && raven.x < canvasDimensions.width) {
-        if (random(100) < 5) {
+      if (!raven.cawed && raven.x < canvasDimensions.width - 30) {
           soundEffects.hawkScreech.play();
           raven.cawed = true;
-        }
       }  
     }
     drawRaven(raven.x, raven.y, 70, raven.animFrame);
@@ -671,20 +700,6 @@ function gameLogic() {
   iteratePlayer();
   iterateEnemies();
   iterateFrogs();
-}
-
-/**
- * Render a cloud at position (x, y) with size.
- * Supports four cloud variants.
- * @param {number} variant - cloud variant number (0-3)
- * @param {number} x - x position of cloud
- * @param {number} y - y position of cloud
- * @param {number} size - size of cloud
- */
-function drawCloud(variant, x, y, size) {
-  variant = Math.floor(variant % 4);
-  let offsets = offsetTables.cloud[variant];
-  copy(sprites.clouds, offsets[0], offsets[1], 512, 512, x, y, size, size);
 }
 
 /**
@@ -701,8 +716,8 @@ function drawSnake(x, y, size, animFrame) {
 }
 
 function drawFrog(x, y, size, animFrame) {
-  animFrame %= 4;
-  copy(sprites.frog, 95 * animFrame, 0, 95, 95, x, y, size, size);
+  animFrame %= 3;
+  copy(sprites.frogs[selectedCharacter], 68 * animFrame, 0, 68, 68, x, y, size, size);
 }
 
 function drawRaven(x, y, size, animFrame) {
@@ -713,15 +728,19 @@ function drawRaven(x, y, size, animFrame) {
 
 function detectCollisionWith(enemyData) {
   let playerHitbox = {
-    topLeft: [player.x + 2, player.y],
-    botRight: [player.x + player.size, player.y + player.size],
+    topLeft: [player.x + 30, player.y],
+    botRight: [player.x + player.size - 30, player.y + player.size - 10],
   };
   let enemyHitbox = {
     topLeft: [enemyData.x + enemyData.hitboxOffsets.topLeft[0], enemyData.y + enemyData.hitboxOffsets.topLeft[1]],
     botRight: [enemyData.x + enemyData.hitboxOffsets.botRight[0], enemyData.y + enemyData.hitboxOffsets.botRight[1]],
   };
 
-  if (player.state == 2) playerHitbox.topLeft[1] += 20;
+  if (player.state == 2) {
+    playerHitbox.topLeft[0] -= 30;
+    playerHitbox.botRight[0] += 30;
+    playerHitbox.topLeft[1] += 60;
+  }
 
   let inRangeX = (enemyHitbox.topLeft[0] < playerHitbox.botRight[0])
     && (enemyHitbox.botRight[0] > playerHitbox.topLeft[0]);
@@ -747,33 +766,25 @@ function draw() {
 
   switch (screen) {
     case "title":
-
       // title(titleString, 400, 40);
-      copy(sprites.logo, 0, 0, 144, 81, 256, 15, 288, 162)
+      copy(sprites.ui.logo, 0, 0, 144, 81, canvasDimensions.width / 2 - 178, 35, 356, 200)
       break;
     case "game":
-
-      copy(sprites.stages[0], 0, 0, 800, 300, 0, 0, 800, 300);
-      fill("#1DFF00");
+      copy(sprites.stages[selectedCharacter], 0, 0, 288, 162, 0, 0, canvasDimensions.width, canvasDimensions.height);
       stroke(0, 0, 0, 0);
       rectMode(CORNER);
-      rect(0, canvasDimensions.height - 50, canvasDimensions.width, 50);
       fill(255, 255, 255);
-      clouds.forEach(cloudData => {
-        if (!gameOver) {
-          cloudData.x -= cloudSpeed;
-          if (cloudData.x < -260) {
-            cloudData.variant = Math.floor(random(0, 4));
-            cloudData.x = canvasDimensions.width + random(0, 512);
-            cloudData.y = random(-10, 5);
-          }
-        }
-        drawCloud(cloudData.variant, cloudData.x, cloudData.y, 128);
-      });
 
       gameLogic();
-      copy(sprites.characters[selectedCharacter], 95 * (player.animFrame % 4), 95 * player.state, 95, 95, player.x, player.y, player.size, player.size);
-      text(frogsCollectedThisRun, 780, 10);
+
+      if (player.state == 0) {
+        copy(sprites.characters[selectedCharacter], 117 * (player.animFrame % 8), 0, 117, 117, player.x, player.y, player.size, player.size);
+      } else if (player.state == 1) {
+        copy(sprites.characters[selectedCharacter], 117 * (player.animFrame % 2), 117, 117, 117, player.x, player.y, player.size, player.size);
+      } else {
+        copy(sprites.characters[selectedCharacter], 234 + 117 * (player.animFrame % 2), 117, 117, 117, player.x, player.y, player.size, player.size);
+      }
+      // text(frogsCollectedThisRun, 780, 10);
       break;
     case "settings":
       title("Settings", 400, 40);
@@ -800,27 +811,54 @@ function draw() {
       if (screenObjects.characterSelect.skipBtn.attribute("disabled") == "") text(
         `${characterUnlockThresholds.skip} Frog\nTo Unlock`,
         screenObjects.characterSelect.skipBtn.size().width / 2 +
-        screenObjects.characterSelect.skipBtn.position().x,
-        237
+        screenObjects.characterSelect.skipBtn.position().x + 5,
+        240
       );
 
       if (screenObjects.characterSelect.milkBtn.attribute("disabled") == "") text(`${characterUnlockThresholds.milk} Frogs\nTo Unlock`,
         screenObjects.characterSelect.milkBtn.size().width / 2 +
-        screenObjects.characterSelect.milkBtn.position().x,
-        237
+        screenObjects.characterSelect.milkBtn.position().x - 40,
+        240
       );
       if (screenObjects.characterSelect.ashBtn.attribute("disabled") == "") text(`${characterUnlockThresholds.ash} Frogs\nTo Unlock`,
         screenObjects.characterSelect.ashBtn.size().width / 2 +
         screenObjects.characterSelect.ashBtn.position().x,
-        237
+        260
       );
       if (screenObjects.characterSelect.dewBtn.attribute("disabled") == "") text(`${characterUnlockThresholds.dew} Frogs\nTo Unlock`,
         screenObjects.characterSelect.dewBtn.size().width / 2 +
-        screenObjects.characterSelect.dewBtn.position().x,
-        237
+        screenObjects.characterSelect.dewBtn.position().x + 25,
+        225
       );
       textAlign(LEFT, CENTER);
-      text(`Total Frogs Collected: ${totalFrogsCollected}`, 10, canvasDimensions.height - 15);
+      textSize(22);
+      stroke(0, 0, 0, 255);
+      strokeWeight(2);
+      const textWidthA = textWidth("Frogs");
+      line(10, 37, 30 + textWidthA, 37);
+      stroke(0, 0, 0, 0);
+      text("Frogs", 20, 20);
+      textAlign(CENTER, CENTER);
+      textSize(20);
+      text(`${totalFrogsCollected}`, textWidthA / 2 + 20, 49);
+      break;
+    case "credits":
+
+      textSize(25);
+      textAlign(CENTER, CENTER);
+      stroke(0, 0, 0, 255);
+      strokeWeight(3);
+      line(360 - textWidth("PRODUCER") / 2, 50, 440 + textWidth("PRODUCER") / 2, 50);
+      line(360 - textWidth("PRODUCER") / 2, 140, 440 + textWidth("PRODUCER") / 2, 140);
+      line(360 - textWidth("PRODUCER") / 2, 230, 440 + textWidth("PRODUCER") / 2, 230);
+      stroke(0, 0, 0, 0);
+      text("PRODUCER", 400, 30);
+      text("ARTIST", 400, 120);
+      text("PROGRAMMER", 400, 210);
+      textSize(20);
+      text("Calyrexs", 400, 70);
+      text("CosmicTraveler", 400, 160);
+      text("C_ffeeStain", 400, 250);
       break;
     default:
       console.error("invalid screen!!!! do better");
@@ -840,14 +878,18 @@ function draw() {
     title("Game Over!", 400, 40);
 
     textAlign(CENTER, CENTER);
-    text(`You collected ${frogsCollectedThisRun} frog(s)!`, 400, 140);
+    let frogsCollectedText = `You collected ${frogsCollectedThisRun} frogs!`;
+    if (frogsCollectedThisRun == 1) {
+      frogsCollectedText = "You collected 1 frog!";
+    }
+    text(frogsCollectedText, 400, 140);
   }
 
 }
 
 function keyPressed() {
-  if (key == " " && player.y == player.baseY) {
-    player.velocity -= 14.5;
+  if (key == " " && player.y == player.baseY && player.state != 2) {
+    player.velocity -= 21.5;
     player.state = 1;
     soundEffects.jirouJump.play();
   }
