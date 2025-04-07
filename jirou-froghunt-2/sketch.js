@@ -6,7 +6,6 @@ let sprites;
 let soundEffects;
 let music;
 let screenObjects;
-let score;
 
 let titleString;
 
@@ -40,6 +39,7 @@ let gameOver;
 let gameOverBtns;
 
 let settings;
+let counter;
 
 /**
  * Render a string as a title, centered at (x, y)
@@ -300,6 +300,8 @@ function setup() {
   noSmooth();
   textFont(customFont);
 
+  counter = 0;
+
   enemyTypes = ["raven", "snake"];
 
   currentEnemyType = enemyTypes[Math.floor(random(2))];
@@ -339,7 +341,6 @@ function setup() {
 
   titleString = "Jirou Froghunt 2";
 
-  score = frameCount;
   player = {
     x: 25,
     y: canvasDimensions.height - 70,
@@ -564,8 +565,6 @@ function screenTransition(screenName) {
 
 function startGame() {
   // reset game specific variables
-  score = 0;
-
   enemySpeed = 4;
 
   player.y = player.baseY;
@@ -598,12 +597,12 @@ function iteratePlayer() {
     }
     player.velocity += gravity;
 
-    if (frameCount % 6 == 0) {
+    if (counter % 6 == 0) {
       enemySpeed += 0.01;
 
       frogSpeed = enemySpeed / 3;
     }
-    if (frameCount % 5 == 0) {
+    if (counter % 5 == 0) {
       player.animFrame++;
     }
   }
@@ -614,7 +613,9 @@ function iterateFrogs() {
       frogTimer--;
     } else if (!gameOver) {
       frog.x -= frogSpeed;
-      if (frameCount % 10 == 0) frog.animFrame++;
+      if (counter % 10 == 0) {
+        frog.animFrame++;
+      } 
     }
     if (frog.x < 0) {
       frog.x = canvasDimensions.width + 150;
@@ -628,7 +629,6 @@ function iterateFrogs() {
       soundEffects.collectFrog.play();
     }
 
-    console.log(frog.animFrame);
 
     drawFrog(frog.x, frog.y, 65, frog.animFrame);
 }
@@ -636,7 +636,7 @@ function iterateFrogs() {
 function iterateEnemies() {
   if (currentEnemyType == "snake" && !gameOver) {
       snake.x -= enemySpeed;
-      if (frameCount % 6 == 0) {
+      if (counter % 6 == 0) {
         snake.animFrame++;
       }
       if (snake.x < -100) {
@@ -657,7 +657,7 @@ function iterateEnemies() {
 
     if (currentEnemyType == "raven" && !gameOver) {
       raven.x -= enemySpeed;
-      if (frameCount % 12 == 0) {
+      if (counter % 12 == 0) {
         raven.animFrame++;
       }
       if (raven.x < -100) {
@@ -682,7 +682,7 @@ function iterateEnemies() {
 }
 
 function gameLogic() {
-  frameCount++;
+  counter++;
 
   iteratePlayer();
   iterateEnemies();
