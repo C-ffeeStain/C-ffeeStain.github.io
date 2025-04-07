@@ -23,7 +23,7 @@ let grassSpeed;
 
 let snake;
 let raven;
-let enemySpeed;
+let enemySpeeds;
 let currentEnemyType;
 let enemyTypes;
 
@@ -117,7 +117,7 @@ function setupCharacterSelect() {
 
   screenObjects.characterSelect.jirouBtn.size(149, 187);
   screenObjects.characterSelect.jirouBtn.id("jirouBtn");
-  screenObjects.characterSelect.jirouBtn.position(180, canvasDimensions.height - 177);
+  screenObjects.characterSelect.jirouBtn.position(180, canvasDimensions.height - 187);
   screenObjects.characterSelect.jirouBtn.mouseClicked(() => {
     selectedCharacter = "jirou";
     startGame();
@@ -125,7 +125,7 @@ function setupCharacterSelect() {
   
   screenObjects.characterSelect.skipBtn.size(212, 185);
   screenObjects.characterSelect.skipBtn.id("skipBtn");
-  screenObjects.characterSelect.skipBtn.position(380, canvasDimensions.height - 175);
+  screenObjects.characterSelect.skipBtn.position(380, canvasDimensions.height - 185);
   screenObjects.characterSelect.skipBtn.mouseClicked(() => {
     selectedCharacter = "skip";
     startGame();
@@ -133,7 +133,7 @@ function setupCharacterSelect() {
   
   screenObjects.characterSelect.milkBtn.size(266, 191);
   screenObjects.characterSelect.milkBtn.id("milkBtn");
-  screenObjects.characterSelect.milkBtn.position(545, canvasDimensions.height - 181);
+  screenObjects.characterSelect.milkBtn.position(545, canvasDimensions.height - 191);
   screenObjects.characterSelect.milkBtn.style("z-index: 5;")
   screenObjects.characterSelect.milkBtn.mouseClicked(() => {
     selectedCharacter = "milk";
@@ -142,7 +142,7 @@ function setupCharacterSelect() {
 
   screenObjects.characterSelect.ashBtn.size(185, 185);
   screenObjects.characterSelect.ashBtn.id("ashBtn");
-  screenObjects.characterSelect.ashBtn.position(290, canvasDimensions.height - 164);
+  screenObjects.characterSelect.ashBtn.position(290, canvasDimensions.height - 174);
   screenObjects.characterSelect.ashBtn.mouseClicked(() => {
     selectedCharacter = "ash";
     startGame();
@@ -150,7 +150,7 @@ function setupCharacterSelect() {
   
   screenObjects.characterSelect.dewBtn.size(227, 194);
   screenObjects.characterSelect.dewBtn.id("dewBtn");
-  screenObjects.characterSelect.dewBtn.position(0, canvasDimensions.height - 184);
+  screenObjects.characterSelect.dewBtn.position(0, canvasDimensions.height - 194);
   screenObjects.characterSelect.dewBtn.mouseClicked(() => {
     selectedCharacter = "dew";
     startGame();
@@ -174,8 +174,8 @@ function setupCharacterSelect() {
         } else {
           screenObjects.characterSelect[button].style("z-index", 0);
         }
-        let pos = screenObjects.characterSelect[button].position();
-        screenObjects.characterSelect[button].position(pos.x, pos.y + 10);
+        // let pos = screenObjects.characterSelect[button].position();
+        // screenObjects.characterSelect[button].position(pos.x, pos.y + 10);
         raisedBtn = true;
       })
 
@@ -184,8 +184,8 @@ function setupCharacterSelect() {
         if (btnElmt.disabled) return;
         
         screenObjects.characterSelect[button].style("z-index", 99);
-        let pos = screenObjects.characterSelect[button].position();
-        screenObjects.characterSelect[button].position(pos.x, pos.y - 10);
+        // let pos = screenObjects.characterSelect[button].position();
+        // screenObjects.characterSelect[button].position(pos.x, pos.y - 10);
         raisedBtn = false;
       });
     }
@@ -399,7 +399,13 @@ function setup() {
     hissed: false
   };
 
-  enemySpeed = 4;
+  enemySpeeds = {
+    jirou: 4,
+    skip: 4.5,
+    milk: 5,
+    ash: 5.5,
+    dew: 6,
+  };
   raven = {
     x: 0,
     y: player.baseY - 25,
@@ -601,7 +607,7 @@ function screenTransition(screenName) {
 
 function startGame() {
   // reset game specific variables
-  enemySpeed = 4;
+  enemySpeed = enemySpeeds[selectedCharacter];
 
   player.y = player.baseY;
   player.state = 0;
@@ -850,7 +856,7 @@ function draw() {
       textSize(15);
       textAlign(CENTER, CENTER);
       if (screenObjects.characterSelect.skipBtn.attribute("disabled") == "") text(
-        `${characterUnlockThresholds.skip} Frog\nTo Unlock`,
+        `${characterUnlockThresholds.skip} Frogs\nTo Unlock`,
         screenObjects.characterSelect.skipBtn.size().width / 2 +
         screenObjects.characterSelect.skipBtn.position().x + 5,
         240
@@ -933,7 +939,8 @@ function draw() {
 }
 
 function keyPressed() {
-  if (key == " " && player.y == player.baseY && player.state != 2) {
+  let spacePressed = key == " " || keyCode == UP_ARROW;
+  if (spacePressed && player.y == player.baseY && player.state != 2) {
     player.velocity -= 21.5;
     player.state = 1;
     soundEffects.jirouJump.play();
