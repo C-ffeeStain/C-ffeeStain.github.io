@@ -807,14 +807,13 @@ function draw() {
 
       break;
     case "game":
-      backgroundPos1--;
-      backgroundPos2--;
-      console.log(backgroundPos1);
+      backgroundPos1 -= enemySpeeds[selectedCharacter] * (2/3);
+      backgroundPos2 -= enemySpeeds[selectedCharacter] * (2/3);
       if (backgroundPos1 <= (-canvasDimensions.width)) {
-        backgroundPos1 = canvasDimensions.width;
+        backgroundPos1 = backgroundPos2 + canvasDimensions.width;
       }
-      if (backgroundPos2 <= -canvasDimensions.width) {
-        backgroundPos2 = canvasDimensions.width;
+      if (backgroundPos2 <= (-canvasDimensions.width)) {
+        backgroundPos2 = backgroundPos1 + canvasDimensions.width;
       }
       copy(sprites.stages[selectedCharacter], 0, 0, 288, 162, backgroundPos1, 0, canvasDimensions.width, canvasDimensions.height);
       copy(sprites.stages[selectedCharacter], 0, 0, 288, 162, backgroundPos2, 0, canvasDimensions.width, canvasDimensions.height);
