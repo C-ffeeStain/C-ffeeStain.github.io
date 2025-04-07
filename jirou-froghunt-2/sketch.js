@@ -628,6 +628,8 @@ function iterateFrogs() {
       soundEffects.collectFrog.play();
     }
 
+    console.log(frog.animFrame);
+
     drawFrog(frog.x, frog.y, 65, frog.animFrame);
 }
 
