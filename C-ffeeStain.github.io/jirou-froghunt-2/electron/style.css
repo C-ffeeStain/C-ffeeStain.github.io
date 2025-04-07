@@ -1,0 +1,318 @@
+@font-face {
+  font-family: "ROCKB";
+  src: url("data/ROCKB.TTF");
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  image-rendering: pixelated;
+}
+
+canvas {
+  display: block;
+}
+
+button {
+  font-family: "ROCKB";
+  font-size: 20px;
+}
+
+#settingsBtn {
+  background: transparent;
+  border: none;
+  background-image: url("data/images/ui/settingsUnselected.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#settingsBtn:hover {
+  background-image: url("data/images/ui/settingsSelected.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#settingsBtn:active {
+  background-image: url("data/images/ui/settingsActive.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#playBtn {
+  background: transparent;
+  border: none;
+  background-image: url("data/images/ui/playUnselected.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#playBtn:hover {
+  background-image: url("data/images/ui/playSelected.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#playBtn:active {
+  background-image: url("data/images/ui/playActive.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#quitBtn {
+  background: transparent;
+  border: none;
+  background-image: url("data/images/ui/quitUnselected.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#quitBtn:hover {
+  background-image: url("data/images/ui/quitSelected.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#quitBtn:active {
+  background-image: url("data/images/ui/quitActive.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#resetProgressBtn {
+  background: transparent;
+  border: none;
+  background-image: url("data/images/ui/resetProgressUnselected.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#resetProgressBtn:hover {
+  background-image: url("data/images/ui/resetProgressSelected.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#resetProgressBtn:active {
+  background-image: url("data/images/ui/resetProgressActive.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#backBtn {
+  background: transparent;
+  border: none;
+  background-image: url("data/images/ui/returnUnselected.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#backBtn:hover {
+  background-image: url("data/images/ui/returnSelected.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#backBtn:active {
+  background-image: url("data/images/ui/returnActive.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#mainMenuBtn {
+  background: transparent;
+  border: none;
+  background-image: url("data/images/ui/mainMenuUnselected.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#mainMenuBtn:hover {
+  background-image: url("data/images/ui/mainMenuSelected.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#mainMenuBtn:active {
+  background-image: url("data/images/ui/mainMenuActive.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#newRunBtn {
+  background: transparent;
+  border: none;
+  background-image: url("data/images/ui/newRunUnselected.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#newRunBtn:hover {
+  background-image: url("data/images/ui/newRunSelected.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#newRunBtn:active {
+  background-image: url("data/images/ui/newRunActive.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#creditsBtn {
+  background: transparent;
+  border: none;
+  background-image: url("data/images/ui/creditsUnselected.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#creditsBtn:hover {
+  background-image: url("data/images/ui/creditsSelected.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#creditsBtn:active {
+  background-image: url("data/images/ui/creditsActive.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#jirouBtn {
+  background: transparent;
+  border: none;
+  background-image: url("data/images/ui/selection/unselected/jirou.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#jirouBtn:hover {
+  background-image: url("data/images/ui/selection/hovered/jirou.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#jirouBtn:disabled {
+  background-image: url("data/images/ui/selection/locked/jirou.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#skipBtn {
+  background: transparent;
+  border: none;
+  background-image: url("data/images/ui/selection/unselected/skip.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#skipBtn:hover {
+  background-image: url("data/images/ui/selection/hovered/skip.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#skipBtn:disabled {
+  background-image: url("data/images/ui/selection/locked/skip.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#ashBtn {
+  background: transparent;
+  border: none;
+  background-image: url("data/images/ui/selection/unselected/ash.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#ashBtn:hover {
+  background-image: url("data/images/ui/selection/hovered/ash.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#ashBtn:disabled {
+  background-image: url("data/images/ui/selection/locked/ash.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#milkBtn {
+  background: transparent;
+  border: none;
+  background-image: url("data/images/ui/selection/unselected/milk.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#milkBtn:hover {
+  background-image: url("data/images/ui/selection/hovered/milk.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#milkBtn:disabled {
+  background-image: url("data/images/ui/selection/locked/milk.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#dewBtn {
+  background: transparent;
+  border: none;
+  background-image: url("data/images/ui/selection/unselected/dew.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#dewBtn:hover {
+  background-image: url("data/images/ui/selection/hovered/dew.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#dewBtn:disabled {
+  background-image: url("data/images/ui/selection/locked/dew.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
