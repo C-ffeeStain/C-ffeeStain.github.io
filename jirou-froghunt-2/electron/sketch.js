@@ -6,9 +6,10 @@ let sprites;
 let soundEffects;
 let music;
 let screenObjects;
-let score;
 
 let titleString;
+
+let raisedBtn;
 
 let player;
 
@@ -40,6 +41,7 @@ let gameOver;
 let gameOverBtns;
 
 let settings;
+let counter;
 
 /**
  * Render a string as a title, centered at (x, y)
@@ -112,7 +114,7 @@ function setupCharacterSelect() {
 
   screenObjects.characterSelect.jirouBtn.size(149, 187);
   screenObjects.characterSelect.jirouBtn.id("jirouBtn");
-  screenObjects.characterSelect.jirouBtn.position(180, canvasDimensions.height - 187);
+  screenObjects.characterSelect.jirouBtn.position(180, canvasDimensions.height - 177);
   screenObjects.characterSelect.jirouBtn.mouseClicked(() => {
     selectedCharacter = "jirou";
     startGame();
@@ -120,7 +122,7 @@ function setupCharacterSelect() {
   
   screenObjects.characterSelect.skipBtn.size(212, 185);
   screenObjects.characterSelect.skipBtn.id("skipBtn");
-  screenObjects.characterSelect.skipBtn.position(380, canvasDimensions.height - 185);
+  screenObjects.characterSelect.skipBtn.position(380, canvasDimensions.height - 175);
   screenObjects.characterSelect.skipBtn.mouseClicked(() => {
     selectedCharacter = "skip";
     startGame();
@@ -128,7 +130,7 @@ function setupCharacterSelect() {
   
   screenObjects.characterSelect.milkBtn.size(266, 191);
   screenObjects.characterSelect.milkBtn.id("milkBtn");
-  screenObjects.characterSelect.milkBtn.position(545, canvasDimensions.height - 191);
+  screenObjects.characterSelect.milkBtn.position(545, canvasDimensions.height - 181);
   screenObjects.characterSelect.milkBtn.style("z-index: 5;")
   screenObjects.characterSelect.milkBtn.mouseClicked(() => {
     selectedCharacter = "milk";
@@ -137,7 +139,7 @@ function setupCharacterSelect() {
 
   screenObjects.characterSelect.ashBtn.size(185, 185);
   screenObjects.characterSelect.ashBtn.id("ashBtn");
-  screenObjects.characterSelect.ashBtn.position(290, canvasDimensions.height - 174);
+  screenObjects.characterSelect.ashBtn.position(290, canvasDimensions.height - 164);
   screenObjects.characterSelect.ashBtn.mouseClicked(() => {
     selectedCharacter = "ash";
     startGame();
@@ -145,7 +147,7 @@ function setupCharacterSelect() {
   
   screenObjects.characterSelect.dewBtn.size(227, 194);
   screenObjects.characterSelect.dewBtn.id("dewBtn");
-  screenObjects.characterSelect.dewBtn.position(0, canvasDimensions.height - 194);
+  screenObjects.characterSelect.dewBtn.position(0, canvasDimensions.height - 184);
   screenObjects.characterSelect.dewBtn.mouseClicked(() => {
     selectedCharacter = "dew";
     startGame();
@@ -156,6 +158,35 @@ function setupCharacterSelect() {
   screenObjects.characterSelect.dewBtn.hide();
   screenObjects.characterSelect.ashBtn.hide();
   screenObjects.characterSelect.milkBtn.hide();
+
+  for (const button in screenObjects.characterSelect) {
+    if (Object.prototype.hasOwnProperty.call(screenObjects.characterSelect, button)) {
+      const btnElmt = document.getElementById(button);
+      
+      btnElmt.addEventListener('mouseout', () => {
+        if (btnElmt.disabled) return;
+        if (raisedBtn) return;
+        if (button == "milkBtn") {
+          screenObjects.characterSelect[button].style("z-index", 5);
+        } else {
+          screenObjects.characterSelect[button].style("z-index", 0);
+        }
+        let pos = screenObjects.characterSelect[button].position();
+        screenObjects.characterSelect[button].position(pos.x, pos.y + 10);
+        raisedBtn = true;
+      })
+
+      btnElmt.addEventListener('mouseover', () => {
+        if (!raisedBtn) return;
+        if (btnElmt.disabled) return;
+        
+        screenObjects.characterSelect[button].style("z-index", 99);
+        let pos = screenObjects.characterSelect[button].position();
+        screenObjects.characterSelect[button].position(pos.x, pos.y - 10);
+        raisedBtn = false;
+      });
+    }
+  }
 }
 
 function setupSettings() {
@@ -300,15 +331,17 @@ function setup() {
   noSmooth();
   textFont(customFont);
 
+  counter = 0;
+
   enemyTypes = ["raven", "snake"];
 
   currentEnemyType = enemyTypes[Math.floor(random(2))];
   gameOver = false;
 
   characterUnlockThresholds = {
-    skip: 1,
-    milk: 2,
-    ash: 3,
+    skip: 5,
+    milk: 20,
+    ash: 40,
     dew: 69
   };
 
@@ -339,7 +372,6 @@ function setup() {
 
   titleString = "Jirou Froghunt 2";
 
-  score = frameCount;
   player = {
     x: 25,
     y: canvasDimensions.height - 70,
@@ -564,8 +596,6 @@ function screenTransition(screenName) {
 
 function startGame() {
   // reset game specific variables
-  score = 0;
-
   enemySpeed = 4;
 
   player.y = player.baseY;
@@ -598,12 +628,12 @@ function iteratePlayer() {
     }
     player.velocity += gravity;
 
-    if (frameCount % 6 == 0) {
+    if (counter % 6 == 0) {
       enemySpeed += 0.01;
 
       frogSpeed = enemySpeed / 3;
     }
-    if (frameCount % 5 == 0) {
+    if (counter % 5 == 0) {
       player.animFrame++;
     }
   }
@@ -614,7 +644,9 @@ function iterateFrogs() {
       frogTimer--;
     } else if (!gameOver) {
       frog.x -= frogSpeed;
-      if (frameCount % 10 == 0) frog.animFrame++;
+      if (counter % 10 == 0) {
+        frog.animFrame++;
+      } 
     }
     if (frog.x < 0) {
       frog.x = canvasDimensions.width + 150;
@@ -628,13 +660,14 @@ function iterateFrogs() {
       soundEffects.collectFrog.play();
     }
 
+
     drawFrog(frog.x, frog.y, 65, frog.animFrame);
 }
 
 function iterateEnemies() {
   if (currentEnemyType == "snake" && !gameOver) {
       snake.x -= enemySpeed;
-      if (frameCount % 6 == 0) {
+      if (counter % 6 == 0) {
         snake.animFrame++;
       }
       if (snake.x < -100) {
@@ -655,7 +688,7 @@ function iterateEnemies() {
 
     if (currentEnemyType == "raven" && !gameOver) {
       raven.x -= enemySpeed;
-      if (frameCount % 12 == 0) {
+      if (counter % 12 == 0) {
         raven.animFrame++;
       }
       if (raven.x < -100) {
@@ -680,7 +713,7 @@ function iterateEnemies() {
 }
 
 function gameLogic() {
-  frameCount++;
+  counter++;
 
   iteratePlayer();
   iterateEnemies();

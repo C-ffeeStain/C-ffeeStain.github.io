@@ -1,6 +1,9 @@
 let canvasDimensions;
 let customFont;
 
+let backgroundPos1;
+let backgroundPos2;
+
 let screen;
 let sprites;
 let soundEffects;
@@ -8,6 +11,8 @@ let music;
 let screenObjects;
 
 let titleString;
+
+let raisedBtn;
 
 let player;
 
@@ -112,7 +117,7 @@ function setupCharacterSelect() {
 
   screenObjects.characterSelect.jirouBtn.size(149, 187);
   screenObjects.characterSelect.jirouBtn.id("jirouBtn");
-  screenObjects.characterSelect.jirouBtn.position(180, canvasDimensions.height - 187);
+  screenObjects.characterSelect.jirouBtn.position(180, canvasDimensions.height - 177);
   screenObjects.characterSelect.jirouBtn.mouseClicked(() => {
     selectedCharacter = "jirou";
     startGame();
@@ -120,7 +125,7 @@ function setupCharacterSelect() {
   
   screenObjects.characterSelect.skipBtn.size(212, 185);
   screenObjects.characterSelect.skipBtn.id("skipBtn");
-  screenObjects.characterSelect.skipBtn.position(380, canvasDimensions.height - 185);
+  screenObjects.characterSelect.skipBtn.position(380, canvasDimensions.height - 175);
   screenObjects.characterSelect.skipBtn.mouseClicked(() => {
     selectedCharacter = "skip";
     startGame();
@@ -128,7 +133,7 @@ function setupCharacterSelect() {
   
   screenObjects.characterSelect.milkBtn.size(266, 191);
   screenObjects.characterSelect.milkBtn.id("milkBtn");
-  screenObjects.characterSelect.milkBtn.position(545, canvasDimensions.height - 191);
+  screenObjects.characterSelect.milkBtn.position(545, canvasDimensions.height - 181);
   screenObjects.characterSelect.milkBtn.style("z-index: 5;")
   screenObjects.characterSelect.milkBtn.mouseClicked(() => {
     selectedCharacter = "milk";
@@ -137,7 +142,7 @@ function setupCharacterSelect() {
 
   screenObjects.characterSelect.ashBtn.size(185, 185);
   screenObjects.characterSelect.ashBtn.id("ashBtn");
-  screenObjects.characterSelect.ashBtn.position(290, canvasDimensions.height - 174);
+  screenObjects.characterSelect.ashBtn.position(290, canvasDimensions.height - 164);
   screenObjects.characterSelect.ashBtn.mouseClicked(() => {
     selectedCharacter = "ash";
     startGame();
@@ -145,7 +150,7 @@ function setupCharacterSelect() {
   
   screenObjects.characterSelect.dewBtn.size(227, 194);
   screenObjects.characterSelect.dewBtn.id("dewBtn");
-  screenObjects.characterSelect.dewBtn.position(0, canvasDimensions.height - 194);
+  screenObjects.characterSelect.dewBtn.position(0, canvasDimensions.height - 184);
   screenObjects.characterSelect.dewBtn.mouseClicked(() => {
     selectedCharacter = "dew";
     startGame();
@@ -156,6 +161,35 @@ function setupCharacterSelect() {
   screenObjects.characterSelect.dewBtn.hide();
   screenObjects.characterSelect.ashBtn.hide();
   screenObjects.characterSelect.milkBtn.hide();
+
+  for (const button in screenObjects.characterSelect) {
+    if (Object.prototype.hasOwnProperty.call(screenObjects.characterSelect, button)) {
+      const btnElmt = document.getElementById(button);
+      
+      btnElmt.addEventListener('mouseout', () => {
+        if (btnElmt.disabled) return;
+        if (raisedBtn) return;
+        if (button == "milkBtn") {
+          screenObjects.characterSelect[button].style("z-index", 5);
+        } else {
+          screenObjects.characterSelect[button].style("z-index", 0);
+        }
+        let pos = screenObjects.characterSelect[button].position();
+        screenObjects.characterSelect[button].position(pos.x, pos.y + 10);
+        raisedBtn = true;
+      })
+
+      btnElmt.addEventListener('mouseover', () => {
+        if (!raisedBtn) return;
+        if (btnElmt.disabled) return;
+        
+        screenObjects.characterSelect[button].style("z-index", 99);
+        let pos = screenObjects.characterSelect[button].position();
+        screenObjects.characterSelect[button].position(pos.x, pos.y - 10);
+        raisedBtn = false;
+      });
+    }
+  }
 }
 
 function setupSettings() {
@@ -301,6 +335,8 @@ function setup() {
   textFont(customFont);
 
   counter = 0;
+  backgroundPos1 = 0;
+  backgroundPos2 = canvasDimensions.width;
 
   enemyTypes = ["raven", "snake"];
 
@@ -308,9 +344,9 @@ function setup() {
   gameOver = false;
 
   characterUnlockThresholds = {
-    skip: 1,
-    milk: 2,
-    ash: 3,
+    skip: 5,
+    milk: 20,
+    ash: 40,
     dew: 69
   };
 
@@ -765,7 +801,17 @@ function draw() {
 
       break;
     case "game":
-      copy(sprites.stages[selectedCharacter], 0, 0, 288, 162, 0, 0, canvasDimensions.width, canvasDimensions.height);
+      backgroundPos1--;
+      backgroundPos2--;
+      console.log(backgroundPos1);
+      if (backgroundPos1 <= (-canvasDimensions.width)) {
+        backgroundPos1 = canvasDimensions.width;
+      }
+      if (backgroundPos2 <= -canvasDimensions.width) {
+        backgroundPos2 = canvasDimensions.width;
+      }
+      copy(sprites.stages[selectedCharacter], 0, 0, 288, 162, backgroundPos1, 0, canvasDimensions.width, canvasDimensions.height);
+      copy(sprites.stages[selectedCharacter], 0, 0, 288, 162, backgroundPos2, 0, canvasDimensions.width, canvasDimensions.height);
       stroke(0, 0, 0, 0);
       rectMode(CORNER);
       fill(255, 255, 255);
@@ -844,16 +890,22 @@ function draw() {
       stroke(0, 0, 0, 255);
       strokeWeight(3);
       line(360 - textWidth("PRODUCER") / 2, 50, 440 + textWidth("PRODUCER") / 2, 50);
-      line(360 - textWidth("PRODUCER") / 2, 140, 440 + textWidth("PRODUCER") / 2, 140);
-      line(360 - textWidth("PRODUCER") / 2, 230, 440 + textWidth("PRODUCER") / 2, 230);
+      line(360 - textWidth("PRODUCER") / 2, 130, 440 + textWidth("PRODUCER") / 2, 130);
+      line(360 - textWidth("PRODUCER") / 2, 210, 440 + textWidth("PRODUCER") / 2, 210);
+      line(360 - textWidth("PRODUCER") / 2, 290, 440 + textWidth("PRODUCER") / 2, 290);
+      line(360 - textWidth("PRODUCER") / 2, 370, 440 + textWidth("PRODUCER") / 2, 370);
       stroke(0, 0, 0, 0);
       text("PRODUCER", 400, 30);
-      text("ARTIST", 400, 120);
-      text("PROGRAMMER", 400, 210);
+      text("ARTIST", 400, 110);
+      text("PROGRAMMER", 400, 190);
+      text("MUSICIAN", 400, 270);
+      text("SPECIAL THANKS", 400, 350);
       textSize(20);
       text("Calyrexs", 400, 70);
-      text("CosmicTraveler", 400, 160);
-      text("C_ffeeStain", 400, 250);
+      text("CosmicTraveler", 400, 150);
+      text("C_ffeeStain", 400, 230);
+      text("HMNK", 400, 310);
+      text("Original Game Creators", 400, 390);
       break;
     default:
       console.error("invalid screen!!!! do better");
@@ -865,9 +917,7 @@ function draw() {
     gameOverBtns.newRunBtn.show();
 
     player.velocity = 0;
-    fill("#99E65F");
-    rectMode(CORNER);
-    rect(0, 0, canvasDimensions.width, canvasDimensions.height);
+    background(sprites.ui.bg);
     
     fill("black");
     title("Game Over!", 400, 40);

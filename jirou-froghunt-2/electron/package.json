@@ -31,7 +31,7 @@
       "buildResources": "data"
     },
     "win": {
-      "target": "nsis"
+      "target": "msi"
     },
     "icon": "logo.ico"
   }
