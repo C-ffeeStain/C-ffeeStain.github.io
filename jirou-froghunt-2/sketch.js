@@ -13,6 +13,7 @@ let screenObjects;
 let titleString;
 
 let raisedBtn;
+let rainFrame;
 
 let player;
 
@@ -250,6 +251,7 @@ function preload() {
       milk: loadImage("data/images/bgs/milk.png"),
       dew: loadImage("data/images/bgs/dew.png"),
     },
+    rain: loadImage("data/images/bgs/rain.png"),
     ui: {
       bg: loadImage("data/images/ui/bg.png"),
       logo: loadImage("data/images/ui/logo.png"),
@@ -616,6 +618,8 @@ function startGame() {
   snake.x = canvasDimensions.width + 100;
   snake.animFrame = 0;
 
+  rainFrame = 0;
+
   raven.x = canvasDimensions.width + 100;
   raven.animFrame = 0;
 
@@ -831,6 +835,11 @@ function draw() {
         copy(sprites.characters[selectedCharacter], 234 + 117 * (player.animFrame % 2), 117, 117, 117, player.x, player.y, player.size, player.size);
       }
       // text(frogsCollectedThisRun, 780, 10);
+      if (selectedCharacter == "dew") {
+        if (counter % 12 == 0) rainFrame++;
+        rainFrame %= 4;
+        copy(sprites.rain, 324 * rainFrame, 0, 324, 162, 0, 40, 800, 400);
+      }
       break;
     case "settings":
       title("Settings", 400, 40);
