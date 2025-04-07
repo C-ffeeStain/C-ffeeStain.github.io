@@ -1,0 +1,38 @@
+{
+  "name": "jirou-froghunt-2",
+  "version": "1.0.0",
+  "description": "calyrexs's game",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^35.1.4"
+  },
+  "build": {
+    "appId": "jirou-froghunt-2",
+    "productName": "Jirou Froghunt 2",
+    "files": [
+      "main.js",
+      "style.css",
+      "index.html",
+      "data/**/*",
+      "node_modules/**/*",
+      "sketch.js",
+      "libraries/p5.min.js",
+      "libraries/p5.sound.min.js",
+      "logo.ico",
+      "favicon.ico"
+    ],
+    "directories": {
+      "buildResources": "data"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "icon": "logo.ico"
+  }
+}

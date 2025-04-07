@@ -3,14 +3,17 @@ const path = require('node:path')
 
 function createWindow () {
   const win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 816,
+    height: 489,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
-    }
+    },
+    resizable: false,
+    maximizable: false,
   })
 
-  win.loadFile('index.html')
+  win.loadFile('index.html');
+  win.removeMenu();
 }
 
 app.whenReady().then(() => {
