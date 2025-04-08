@@ -809,6 +809,13 @@ function draw() {
       copy(sprites.ui.chibis.ash, 0, 0, 42, 42, centerX + 36, 255, 64, 64);
       copy(sprites.ui.chibis.dew, 0, 0, 42, 42, centerX + 104, 255, 64, 64);
 
+      textAlign(CENTER, CENTER);
+      colorMode(HSL);
+      fill(frameCount % 360, 100, 50);
+      colorMode(RGB);
+      stroke(0, 0, 0, 255);
+      text("Happy Birthday\nMikkoukun!", 150, 100);
+      stroke(0, 0, 0, 0);
       break;
     case "game":
       backgroundPos1 -= enemySpeeds[selectedCharacter] * (2/3);
