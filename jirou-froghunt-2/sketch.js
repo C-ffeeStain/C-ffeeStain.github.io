@@ -76,7 +76,7 @@ function setupTitleScreen() {
   screenObjects.title = {
     playBtn: createButton(""),
     settingsBtn: createButton(""),
-    quitBtn: createButton(""),
+    // quitBtn: createButton(""),
     creditsBtn: createButton("")
   };
 
@@ -93,13 +93,13 @@ function setupTitleScreen() {
   screenObjects.title.settingsBtn.id("settingsBtn");
   screenObjects.title.settingsBtn.mouseClicked(() => screenTransition("settings"));
 
-  screenObjects.title.quitBtn.position(settingsBtnX + btnOffset, canvasOrigin[1] + 330);
-  screenObjects.title.quitBtn.size(233, 105);
-  screenObjects.title.quitBtn.id("quitBtn");
-  screenObjects.title.quitBtn.mouseClicked(() => window.close());
+  // screenObjects.title.quitBtn.position(settingsBtnX + btnOffset, canvasOrigin[1] + 330);
+  // screenObjects.title.quitBtn.size(233, 105);
+  // screenObjects.title.quitBtn.id("quitBtn");
+  // screenObjects.title.quitBtn.mouseClicked(() => window.close());
 
-  screenObjects.title.creditsBtn.position(canvasOrigin[0] + canvasDimensions.width - 132, canvasOrigin[1] + 15);
-  screenObjects.title.creditsBtn.size(117, 53);
+  screenObjects.title.creditsBtn.position(settingsBtnX + btnOffset, canvasOrigin[1] + 330);
+  screenObjects.title.creditsBtn.size(233, 105);
   screenObjects.title.creditsBtn.id("creditsBtn");
   screenObjects.title.creditsBtn.mouseClicked(() => {
     if (screen == "title") {
@@ -490,7 +490,7 @@ function setup() {
   const btns = [
     document.getElementById('playBtn'),
     document.getElementById('settingsBtn'),
-    document.getElementById('quitBtn'),
+    // document.getElementById('quitBtn'),
     document.getElementById('resetProgressBtn'),
     document.getElementById('creditsBtn'),
     document.getElementById('backBtn'),
@@ -528,7 +528,7 @@ function screenTransition(screenName) {
     case "title":
       screenObjects.title.playBtn.hide();
       screenObjects.title.settingsBtn.hide();
-      screenObjects.title.quitBtn.hide();
+      // screenObjects.title.quitBtn.hide();
       if (screenName == "credits") {
         screenObjects.title.creditsBtn.id("backBtn");
       } else {
@@ -565,7 +565,7 @@ function screenTransition(screenName) {
       fill(0, 0, 0);
       screenObjects.title.playBtn.show();
       screenObjects.title.settingsBtn.show();
-      screenObjects.title.quitBtn.show();
+      // screenObjects.title.quitBtn.show();
       screenObjects.title.creditsBtn.id("creditsBtn");
       screenObjects.title.creditsBtn.show();
 
