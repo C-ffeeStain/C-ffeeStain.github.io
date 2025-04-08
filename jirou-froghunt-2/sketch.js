@@ -335,14 +335,14 @@ function loadGame() {
 
 function setup() {
   canvasDimensions = {
-    width: 800,
-    height: 450
+    width: 802,
+    height: 452,
   };
   let div = createDiv();
   createCanvas(canvasDimensions.width, canvasDimensions.height).parent(div);
   div.style("position", "absolute");
   div.size(canvasDimensions.width, canvasDimensions.height);
-  div.position(560, 258.5);
+  div.position(558, 257.94);
   translate(windowWidth / 2 - canvasDimensions.width / 2, windowHeight / 2 - canvasDimensions.height / 2);
   noSmooth();
   textFont(customFont);
