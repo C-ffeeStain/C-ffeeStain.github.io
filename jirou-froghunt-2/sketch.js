@@ -980,10 +980,12 @@ function draw() {
 }
 
 function keyPressed() {
+  if (screen != "game") return;
   let spacePressed = key == " " || keyCode == UP_ARROW;
   if (spacePressed && player.y == player.baseY && player.state != 2) {
     player.velocity -= 21.5;
     player.state = 1;
     soundEffects.jirouJump.play();
   }
+  return false;
 }
