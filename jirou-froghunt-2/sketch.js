@@ -853,6 +853,19 @@ function draw() {
 
       gameLogic();
 
+      if (selectedCharacter == "skip") {
+        if (counter % 12 == 0) {
+          starsFrame++;
+          lightsFrame++;
+        }
+        lightsFrame %= 13;
+        starsFrame %= 9;
+        copy(sprites.lights, 288 * lightsFrame, 0, 288, 162, backgroundPos1, 0, 800, 450);
+        copy(sprites.lights, 288 * lightsFrame, 0, 288, 162, backgroundPos2, 0, 800, 450);
+        copy(sprites.stars, 288 * starsFrame, 0, 288, 162, backgroundPos1, 0, 800, 450);
+        copy(sprites.stars, 288 * starsFrame, 0, 288, 162, backgroundPos2, 0, 800, 450);
+      }
+
       if (player.state == 0) {
         copy(sprites.characters[selectedCharacter], 117 * (player.animFrame % 8), 0, 117, 117, player.x, player.y, player.size, player.size);
       } else if (player.state == 1) {
@@ -865,17 +878,6 @@ function draw() {
         if (counter % 12 == 0) rainFrame++;
         rainFrame %= 4;
         copy(sprites.rain, 324 * rainFrame, 0, 324, 162, 0, 40, 800, 400);
-      } else if (selectedCharacter == "skip") {
-        if (counter % 12 == 0) {
-          starsFrame++;
-          lightsFrame++;
-        }
-        lightsFrame %= 13;
-        starsFrame %= 9;
-        copy(sprites.lights, 288 * lightsFrame, 0, 288, 162, backgroundPos1, 0, 800, 450);
-        copy(sprites.lights, 288 * lightsFrame, 0, 288, 162, backgroundPos2, 0, 800, 450);
-        copy(sprites.stars, 288 * starsFrame, 0, 288, 162, backgroundPos1, 0, 800, 450);
-        copy(sprites.stars, 288 * starsFrame, 0, 288, 162, backgroundPos2, 0, 800, 450);
       }
       break;
     case "settings":
