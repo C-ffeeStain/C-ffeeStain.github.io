@@ -5,9 +5,6 @@ let customFont;
 let backgroundPos1;
 let backgroundPos2;
 
-let fxPos1;
-let fxPos2;
-
 let screen;
 let sprites;
 let soundEffects;
@@ -353,9 +350,6 @@ function setup() {
   counter = 0;
   backgroundPos1 = 0;
   backgroundPos2 = canvasDimensions.width;
-
-  fxPos1 = 0;
-  fxPos2 = canvasDimensions.width;
 
   enemyTypes = ["raven", "snake"];
 
@@ -876,8 +870,10 @@ function draw() {
         }
         lightsFrame %= 13;
         starsFrame %= 9;
-        copy(sprites.lights, 288 * lightsFrame, 0, 288, 162, backgroundPos1, 40, 800, 400);
-        copy(sprites.stars, 288 * starsFrame, 0, 288, 162, backgroundPos2, 40, 800, 400);
+        copy(sprites.lights, 288 * lightsFrame, 0, 288, 162, backgroundPos1, 0, 800, 450);
+        copy(sprites.lights, 288 * lightsFrame, 0, 288, 162, backgroundPos2, 0, 800, 450);
+        copy(sprites.stars, 288 * starsFrame, 0, 288, 162, backgroundPos1, 0, 800, 450);
+        copy(sprites.stars, 288 * starsFrame, 0, 288, 162, backgroundPos2, 0, 800, 450);
       }
       break;
     case "settings":
