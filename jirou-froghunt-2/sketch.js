@@ -5,6 +5,9 @@ let customFont;
 let backgroundPos1;
 let backgroundPos2;
 
+let fxPos1;
+let fxPos2;
+
 let screen;
 let sprites;
 let soundEffects;
@@ -15,6 +18,8 @@ let titleString;
 
 let raisedBtn;
 let rainFrame;
+let starsFrame;
+let lightsFrame;
 
 let player;
 
@@ -255,6 +260,8 @@ function preload() {
       dew: loadImage("data/images/bgs/dew.png"),
     },
     rain: loadImage("data/images/bgs/rain.png"),
+    stars: loadImage("data/images/bgs/stars.png"),
+    lights: loadImage("data/images/bgs/lights.png"),
     ui: {
       bg: loadImage("data/images/ui/bg.png"),
       logo: loadImage("data/images/ui/logo.png"),
@@ -346,6 +353,9 @@ function setup() {
   counter = 0;
   backgroundPos1 = 0;
   backgroundPos2 = canvasDimensions.width;
+
+  fxPos1 = 0;
+  fxPos2 = canvasDimensions.width;
 
   enemyTypes = ["raven", "snake"];
 
@@ -629,6 +639,8 @@ function startGame() {
   snake.animFrame = 0;
 
   rainFrame = 0;
+  starsFrame = 0;
+  lightsFrame = 0;
 
   raven.x = canvasDimensions.width + 100;
   raven.animFrame = 0;
@@ -857,6 +869,15 @@ function draw() {
         if (counter % 12 == 0) rainFrame++;
         rainFrame %= 4;
         copy(sprites.rain, 324 * rainFrame, 0, 324, 162, 0, 40, 800, 400);
+      } else if (selectedCharacter == "skip") {
+        if (counter % 12 == 0) {
+          starsFrame++;
+          lightsFrame++;
+        }
+        lightsFrame %= 13;
+        starsFrame %= 9;
+        copy(sprites.lights, 288 * lightsFrame, 0, 288, 162, backgroundPos1, 40, 800, 400);
+        copy(sprites.stars, 288 * starsFrame, 0, 288, 162, backgroundPos2, 40, 800, 400);
       }
       break;
     case "settings":
