@@ -205,11 +205,11 @@ function setupSettings() {
   };
 
 
-  screenObjects.settings.musicSlider.position(230, 90);
+  screenObjects.settings.musicSlider.position(canvasOrigin[0] + 230, canvasOrigin[1] + 90);
 
-  screenObjects.settings.sfxSlider.position(230, 140);
+  screenObjects.settings.sfxSlider.position(canvasOrigin[0] + 230, canvasOrigin[1] + 140);
 
-  screenObjects.settings.resetProgressBtn.position(600, canvasDimensions.height - 100);
+  screenObjects.settings.resetProgressBtn.position(canvasOrigin[0] + 600, canvasOrigin[1] + canvasDimensions.height - 100);
   screenObjects.settings.resetProgressBtn.size(175, 79);
   screenObjects.settings.resetProgressBtn.id("resetProgressBtn");
   screenObjects.settings.resetProgressBtn.mouseClicked(() => {
@@ -217,7 +217,7 @@ function setupSettings() {
     saveGame();
   });
 
-  screenObjects.settings.backBtn.position(312, canvasDimensions.height - 100);
+  screenObjects.settings.backBtn.position(canvasOrigin[0] + 312, canvasOrigin[1] + canvasDimensions.height - 100);
   screenObjects.settings.backBtn.size(175, 79);
   screenObjects.settings.backBtn.id("backBtn")
   screenObjects.settings.backBtn.mouseClicked(() => {
@@ -902,19 +902,16 @@ function draw() {
       textAlign(CENTER, CENTER);
       if (screenObjects.characterSelect.skipBtn.attribute("disabled") == "") text(
         `${characterUnlockThresholds.skip} Frogs\nTo Unlock`,
-        490,
+        495,
         230
       );
-
       if (screenObjects.characterSelect.milkBtn.attribute("disabled") == "") text(`${characterUnlockThresholds.milk} Frogs\nTo Unlock`,
-        screenObjects.characterSelect.milkBtn.size().width / 2 +
-        screenObjects.characterSelect.milkBtn.position().x - 40,
+        640,
         240
       );
       if (screenObjects.characterSelect.ashBtn.attribute("disabled") == "") text(`${characterUnlockThresholds.ash} Frogs\nTo Unlock`,
-        screenObjects.characterSelect.ashBtn.size().width / 2 +
-        screenObjects.characterSelect.ashBtn.position().x,
-        260
+        380,
+        250
       );
       if (screenObjects.characterSelect.dewBtn.attribute("disabled") == "") text(`${characterUnlockThresholds.dew} Frogs\nTo Unlock`,
         130,
