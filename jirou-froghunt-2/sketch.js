@@ -522,7 +522,7 @@ function pageClicked() {
 
 function screenTransition(screenName) {
   saveGame();
-
+  
   const OLD_SCREEN = screen;
   switch (OLD_SCREEN) {
     case "title":
@@ -553,6 +553,7 @@ function screenTransition(screenName) {
       music.jirou.stop();
       break;
     case "game":
+      document.body.style.overflow = "auto";
       music[selectedCharacter].stop();
       break;
     default:
@@ -612,6 +613,7 @@ function screenTransition(screenName) {
       screenObjects.settings.backBtn.show();
       break;
     case "game":
+      document.body.style.overflow = "hidden";
       music[selectedCharacter].loop();
       break;
     default:
