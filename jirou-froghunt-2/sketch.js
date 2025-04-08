@@ -1,4 +1,5 @@
 let canvasDimensions;
+let canvasOrigin;
 let customFont;
 
 let backgroundPos1;
@@ -77,25 +78,25 @@ function setupTitleScreen() {
     creditsBtn: createButton("")
   };
 
-  const settingsBtnX = canvasDimensions.width / 2 - 117;
+  const settingsBtnX = canvasOrigin[0] + canvasDimensions.width / 2 - 117;
   const btnOffset = 250;
   
-  screenObjects.title.playBtn.position(settingsBtnX - btnOffset, 330);
+  screenObjects.title.playBtn.position(settingsBtnX - btnOffset,canvasOrigin[1] + 330);
   screenObjects.title.playBtn.size(233, 105);
   screenObjects.title.playBtn.mouseClicked(() => screenTransition("characterSelect"));
   screenObjects.title.playBtn.id("playBtn");
 
-  screenObjects.title.settingsBtn.position(settingsBtnX, 330);
+  screenObjects.title.settingsBtn.position(settingsBtnX, canvasOrigin[1] + 330);
   screenObjects.title.settingsBtn.size(233, 105);
   screenObjects.title.settingsBtn.id("settingsBtn");
   screenObjects.title.settingsBtn.mouseClicked(() => screenTransition("settings"));
 
-  screenObjects.title.quitBtn.position(settingsBtnX + btnOffset, 330);
+  screenObjects.title.quitBtn.position(settingsBtnX + btnOffset, canvasOrigin[1] + 330);
   screenObjects.title.quitBtn.size(233, 105);
   screenObjects.title.quitBtn.id("quitBtn");
   screenObjects.title.quitBtn.mouseClicked(() => window.close());
 
-  screenObjects.title.creditsBtn.position(canvasDimensions.width - 132, 15);
+  screenObjects.title.creditsBtn.position(canvasOrigin[0] + canvasDimensions.width - 132, canvasOrigin[1] + 15);
   screenObjects.title.creditsBtn.size(117, 53);
   screenObjects.title.creditsBtn.id("creditsBtn");
   screenObjects.title.creditsBtn.mouseClicked(() => {
@@ -118,7 +119,7 @@ function setupCharacterSelect() {
 
   screenObjects.characterSelect.jirouBtn.size(149, 187);
   screenObjects.characterSelect.jirouBtn.id("jirouBtn");
-  screenObjects.characterSelect.jirouBtn.position(180, canvasDimensions.height - 187);
+  screenObjects.characterSelect.jirouBtn.position(canvasOrigin[0] + 180, canvasOrigin[1] + canvasDimensions.height - 187);
   screenObjects.characterSelect.jirouBtn.mouseClicked(() => {
     selectedCharacter = "jirou";
     startGame();
@@ -126,7 +127,7 @@ function setupCharacterSelect() {
   
   screenObjects.characterSelect.skipBtn.size(212, 185);
   screenObjects.characterSelect.skipBtn.id("skipBtn");
-  screenObjects.characterSelect.skipBtn.position(380, canvasDimensions.height - 185);
+  screenObjects.characterSelect.skipBtn.position(canvasOrigin[0] + 380, canvasOrigin[1] + canvasDimensions.height - 185);
   screenObjects.characterSelect.skipBtn.mouseClicked(() => {
     selectedCharacter = "skip";
     startGame();
@@ -134,7 +135,7 @@ function setupCharacterSelect() {
   
   screenObjects.characterSelect.milkBtn.size(266, 191);
   screenObjects.characterSelect.milkBtn.id("milkBtn");
-  screenObjects.characterSelect.milkBtn.position(545, canvasDimensions.height - 191);
+  screenObjects.characterSelect.milkBtn.position(canvasOrigin[0] + 545, canvasOrigin[1] + canvasDimensions.height - 191);
   screenObjects.characterSelect.milkBtn.style("z-index: 5;")
   screenObjects.characterSelect.milkBtn.mouseClicked(() => {
     selectedCharacter = "milk";
@@ -143,7 +144,7 @@ function setupCharacterSelect() {
 
   screenObjects.characterSelect.ashBtn.size(185, 185);
   screenObjects.characterSelect.ashBtn.id("ashBtn");
-  screenObjects.characterSelect.ashBtn.position(290, canvasDimensions.height - 174);
+  screenObjects.characterSelect.ashBtn.position(canvasOrigin[0] + 290, canvasOrigin[1] + canvasDimensions.height - 174);
   screenObjects.characterSelect.ashBtn.mouseClicked(() => {
     selectedCharacter = "ash";
     startGame();
@@ -151,7 +152,7 @@ function setupCharacterSelect() {
   
   screenObjects.characterSelect.dewBtn.size(227, 194);
   screenObjects.characterSelect.dewBtn.id("dewBtn");
-  screenObjects.characterSelect.dewBtn.position(0, canvasDimensions.height - 194);
+  screenObjects.characterSelect.dewBtn.position(canvasOrigin[0], canvasOrigin[1] + canvasDimensions.height - 194);
   screenObjects.characterSelect.dewBtn.mouseClicked(() => {
     selectedCharacter = "dew";
     startGame();
@@ -200,6 +201,8 @@ function setupSettings() {
     resetProgressBtn: createButton(""),
     backBtn: createButton("")
   };
+
+
   screenObjects.settings.musicSlider.position(230, 90);
 
   screenObjects.settings.sfxSlider.position(230, 140);
@@ -331,8 +334,12 @@ function setup() {
     width: 800,
     height: 450
   };
-  createCanvas(canvasDimensions.width, canvasDimensions.height);
-
+  let div = createDiv();
+  createCanvas(canvasDimensions.width, canvasDimensions.height).parent(div);
+  div.style("position", "absolute");
+  div.size(canvasDimensions.width, canvasDimensions.height);
+  div.position(windowWidth / 2 - canvasDimensions.width / 2, windowHeight / 2 - canvasDimensions.height / 2);
+  translate(windowWidth / 2 - canvasDimensions.width / 2, windowHeight / 2 - canvasDimensions.height / 2);
   noSmooth();
   textFont(customFont);
 
@@ -437,8 +444,10 @@ function setup() {
     mainMenuBtn: createButton(""),
     newRunBtn: createButton("")
   };
-
-  gameOverBtns.mainMenuBtn.position(425, 175);
+  
+  canvasOrigin = [windowWidth / 2 - canvasDimensions.width / 2, windowHeight / 2 - canvasDimensions.height / 2];
+  
+  gameOverBtns.mainMenuBtn.position(canvasOrigin[0] + 425, canvasOrigin[1] + 175);
   gameOverBtns.mainMenuBtn.size(175, 79);
   gameOverBtns.mainMenuBtn.id("mainMenuBtn");
   gameOverBtns.mainMenuBtn.mouseClicked(() => {
@@ -452,7 +461,8 @@ function setup() {
   });
   gameOverBtns.mainMenuBtn.hide();
 
-  gameOverBtns.newRunBtn.position(195, 175);
+
+  gameOverBtns.newRunBtn.position(canvasOrigin[0] + 195, canvasOrigin[1] + 175);
   gameOverBtns.newRunBtn.size(195, 79);
   gameOverBtns.newRunBtn.id("newRunBtn");
   gameOverBtns.newRunBtn.mouseClicked(() => {
@@ -816,6 +826,7 @@ function draw() {
       stroke(0, 0, 0, 255);
       text("Happy Birthday\nMikkoukun!", 150, 100);
       stroke(0, 0, 0, 0);
+      fill(0, 0, 0, 255);
       break;
     case "game":
       backgroundPos1 -= enemySpeeds[selectedCharacter] * (2/3);
@@ -872,9 +883,8 @@ function draw() {
       textAlign(CENTER, CENTER);
       if (screenObjects.characterSelect.skipBtn.attribute("disabled") == "") text(
         `${characterUnlockThresholds.skip} Frogs\nTo Unlock`,
-        screenObjects.characterSelect.skipBtn.size().width / 2 +
-        screenObjects.characterSelect.skipBtn.position().x + 5,
-        240
+        490,
+        230
       );
 
       if (screenObjects.characterSelect.milkBtn.attribute("disabled") == "") text(`${characterUnlockThresholds.milk} Frogs\nTo Unlock`,
@@ -888,9 +898,8 @@ function draw() {
         260
       );
       if (screenObjects.characterSelect.dewBtn.attribute("disabled") == "") text(`${characterUnlockThresholds.dew} Frogs\nTo Unlock`,
-        screenObjects.characterSelect.dewBtn.size().width / 2 +
-        screenObjects.characterSelect.dewBtn.position().x + 25,
-        225
+        130,
+        220
       );
       textAlign(LEFT, CENTER);
       textSize(22);
