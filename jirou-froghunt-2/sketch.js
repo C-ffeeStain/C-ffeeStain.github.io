@@ -342,7 +342,7 @@ function setup() {
   createCanvas(canvasDimensions.width, canvasDimensions.height).parent(div);
   div.style("position", "absolute");
   div.size(canvasDimensions.width, canvasDimensions.height);
-  div.position(windowWidth / 2 - canvasDimensions.width / 2, windowHeight / 2 - canvasDimensions.height / 2);
+  div.position(560, 258.5);
   translate(windowWidth / 2 - canvasDimensions.width / 2, windowHeight / 2 - canvasDimensions.height / 2);
   noSmooth();
   textFont(customFont);
@@ -449,7 +449,7 @@ function setup() {
     newRunBtn: createButton("")
   };
   
-  canvasOrigin = [windowWidth / 2 - canvasDimensions.width / 2, windowHeight / 2 - canvasDimensions.height / 2];
+  canvasOrigin = [560, 258.5];
   
   gameOverBtns.mainMenuBtn.position(canvasOrigin[0] + 425, canvasOrigin[1] + 175);
   gameOverBtns.mainMenuBtn.size(175, 79);
