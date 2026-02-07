@@ -1,0 +1,42 @@
+body {
+    background-color: rgb(57, 93, 214);
+    color: white;
+    font-family: Calibri, 'Trebuchet MS', sans-serif;
+}
+
+#calculate {
+    width: 128px;
+    height: 32px;
+    font-family: Calibri, 'Trebuchet MS', sans-serif;
+}
+
+label {
+    font-size: 25px;
+}
+
+input, select {
+    margin: 10px;
+}
+.centered-text {
+    text-align: center;
+}
+.panel {
+    padding: 10px;
+    margin: 10px;
+    background-color: rgb(51, 51, 51);
+    border-radius: 15px;
+    box-shadow: 10px 5px 5px black;
+
+  /* display: block;
+  margin: auto; */
+}
+
+.no-margin-or-padding {
+    padding: 0px;
+    margin: 0px;
+}
+
+button {
+    display: block;
+    margin: auto;
+}

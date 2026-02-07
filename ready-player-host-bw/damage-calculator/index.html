@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>RPH: BW - Damage Calculator</title>
+        <link rel="stylesheet" href="../index.css">
+    </head>
+    <body>
+        <h1 class="centered-text">Ready Player Host: Black and White - Damage Calculator</h1>
+        <div class="panel">
+            <form class="centered-text">
+                <label for="atk-damage">Attacker's ATK</label><br>
+                <input inputmode="numeric" type="number" name="atk-damage" id="atk-damage"><br>
+                <label for="atk-element">Attacker's Element</label><br>
+                <select id="atk-elements" name="atk-elements">
+                    <option value="null">Null</option>
+                    <option value="fire">Fire</option>
+                    <option value="water">Water</option>
+                    <option value="electric">Electric</option>
+                    <option value="ground">Ground</option>
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                </select><br>
+                <input name="atk-crithit" id="atk-crithit" type="checkbox">
+                <label>Critical Hit?</label><br>
+                <hr>
+                <label for="def-defense">Victim's Defense</label><br>
+                <input inputmode="numeric" type="number" name="def-defense" id="def-defense"><br>
+                <label for="def-element">Victim's Element</label><br>
+                <select id="def-elements" name="def-elements">
+                    <option value="null">Null</option>
+                    <option value="fire">Fire</option>
+                    <option value="water">Water</option>
+                    <option value="electric">Electric</option>
+                    <option value="ground">Ground</option>
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                </select><br>
+                <input id="def-defended" name="def-defended" type="checkbox">
+                <label for="def-defended">Victim Defended?</label>
+            </form>
+            <hr>
+            <button id="calculate">Calculate</button>
+        </div>
+        <div class ="panel">
+            <h2 class="centered-text">This attack will deal...</h2>
+            <h1 id="dmg-amount" class="centered-text">0</h1>
+            <h2 class="centered-text">Damage</h2>
+        </div>
+        <script src="index.js"></script>
+    </body>
+</html>
