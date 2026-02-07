@@ -12,12 +12,11 @@ addEventListener("load", (event) => {
     document.getElementById("calculate").onclick = calculateDamage;
 });
 
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * max) + min;
+}
 
-function calculateDamage() {
-    dmgAmount.innerHTML = "0";
-    let damage = parseFloat(atkAttack.value);
-    if (isNaN(damage)) return;
-    console.log(atkElement.value)
+function applyDmgFormula(damage) {
     switch (atkElement.value) {
         case "fire":
             if (defElement.value == "water") damage /= 2;
@@ -52,6 +51,14 @@ function calculateDamage() {
     }
 
     damage -= parseInt(defDefense.value);
+    return Math.floor(damage);
+}
+
+function calculateDamage() {
+    dmgAmount.innerHTML = "0";
+    let damage = parseFloat(atkAttack.value);
+    let minDmg = 0.5 * damage;
+    let maxDmg = 1.5 * damage;    
     
-    dmgAmount.innerHTML = Math.floor(damage).toString();
+    dmgAmount.innerHTML = applyDmgFormula(minDmg).toString() + "-" + applyDmgFormula(maxDmg).toString();
 }
