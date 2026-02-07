@@ -51,14 +51,16 @@ function applyDmgFormula(damage) {
     }
 
     damage -= parseInt(defDefense.value);
-    return Math.floor(damage);
+    return Math.max(0, Math.floor(damage));
 }
 
 function calculateDamage() {
     dmgAmount.innerHTML = "0";
     let damage = parseFloat(atkAttack.value);
     let minDmg = 0.5 * damage;
-    let maxDmg = 1.5 * damage;    
+    let maxDmg = 1.5 * damage;
+
+    
     
     dmgAmount.innerHTML = applyDmgFormula(minDmg).toString() + "-" + applyDmgFormula(maxDmg).toString();
 }
