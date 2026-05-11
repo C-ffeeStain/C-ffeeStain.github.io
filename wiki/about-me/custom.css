@@ -1,8 +1,16 @@
+@font-face {
+            font-family: OMORI;
+            src: url("/wiki/about-me/font.ttf");
+        }
+
 body {
-    background-color: #090909;
-    color: #ededed;
+    background-image: url("/wiki/about-me/imgs/background.png");
+    color: white;
 
     font-family: OMORI, monospace;
+    margin: 0;
+
+    height: 100%;
 }
 
 .page {
@@ -11,12 +19,11 @@ body {
     min-height: 100vh;
     position: relative;
     background-color: black;
-    border: 4px solid white;
     padding: 10px;
     margin: 40px auto;
 
     box-sizing: border-box;
-    border-radius: 0px;
+    border: 4px solid white;
 }
 
 a {
@@ -32,25 +39,27 @@ a {
 
     margin: 20px;
     
-    background-color: black;
-    border: 2px solid white;
+    background-color: rgb(26, 26, 26);
+    border: 4px solid white;
     border-radius: 5px;
 }
 
 .infobox-header {
-    background-color: black;
+    background-color: white;
+    color: black;
     text-align: center;
     padding: 5px 5px 10px 5px;
     margin: 0px;
     
-    font-size: 36px;
+    font-size: 32px;
 }
 
 .infobox-table {
     padding: 5px;
-    font-size: 27px;
+    font-size: 24px;
     border-spacing: 5px;
     border-collapse: collapse;
+    width: 100%;
 }
 
 .infobox-image {
@@ -63,11 +72,11 @@ a {
 }
 
 .infobox-table-row {
-    border-top: 1px solid white;
+    border-top: 2px solid white;
 }
 
 .infobox-table-label {
-    font-size: 0.85em;
+    font-size: 22px;
 
     font-weight: bold;
     text-align: left;
@@ -79,11 +88,11 @@ a {
 }
 
 .infobox-table-info {
-    font-size: 0.85em;
+    font-size: 22px;
     vertical-align: middle;
     padding: 10px;
-    min-width: 160px;
-    color: rgb(194, 194, 194);
+    min-width: 155px;
+    color: white;
 }
 
 .infobox-table-icon {
@@ -120,7 +129,7 @@ a {
 }
 
 .wiki-body {
-    font-size: 26px;
+    font-size: 24px;
     margin: 10px;
     margin-left: 10px;
 }
@@ -132,14 +141,14 @@ ul ul {
 
 .wiki-list-item {
     margin-bottom: 5px;
-    font-size: 26px;
+    font-size: 24px;
 }
 
 .wiki-table {
     border-spacing: 0;
     border-collapse: collapse;
     border: 2px solid white;
-    font-size: 26px;
+    font-size: 24px;
 
     margin-left: 10px;
 }
@@ -152,11 +161,20 @@ ul ul {
 }
 
 .wiki-table-row * {
-    border-bottom: 1px solid white;
+    border-bottom: 4px solid white;
 }
 
 .wiki-table-header * {
-    /* color: black; */
-    background-color: white;
     color: black;
+    background-color: white;
+}
+
+@media screen and (max-width: 800px) {
+.infobox {
+    float: none;
+
+    width: 99%;
+
+    margin: 20px 0;
+}
 }
