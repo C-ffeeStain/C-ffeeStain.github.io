@@ -50,12 +50,11 @@ a {
     padding: 5px 5px 10px 5px;
     margin: 0px;
     
-    font-size: 32px;
+    font-size: 2.2em;
 }
 
 .infobox-table {
     padding: 5px;
-    font-size: 24px;
     border-spacing: 5px;
     border-collapse: collapse;
     width: 100%;
@@ -75,7 +74,7 @@ a {
 }
 
 .infobox-table-label {
-    font-size: 22px;
+    font-size: 1.4em;
 
     font-weight: bold;
     text-align: left;
@@ -128,7 +127,7 @@ a {
 }
 
 .wiki-body {
-    font-size: 24px;
+    font-size: 1.5em;
     margin: 10px;
     margin-left: 10px;
 }
@@ -140,14 +139,14 @@ ul ul {
 
 .wiki-list-item {
     margin-bottom: 5px;
-    font-size: 24px;
+    font-size: 1.5em;
 }
 
 .wiki-table {
     border-spacing: 0;
     border-collapse: collapse;
     /* border: 2px solid white; */
-    font-size: 24px;
+    font-size: 1.5em;
 
     margin-left: 10px;
 }
