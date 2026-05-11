@@ -1,0 +1,162 @@
+body {
+    background-color: #090909;
+    color: #ededed;
+
+    font-family: OMORI, monospace;
+}
+
+.page {
+
+    max-width: 1236px;
+    min-height: 100vh;
+    position: relative;
+    background-color: black;
+    border: 4px solid white;
+    padding: 10px;
+    margin: 40px auto;
+
+    box-sizing: border-box;
+    border-radius: 0px;
+}
+
+a {
+    color: white;
+    font-weight: bold;
+}
+
+.infobox {
+    float: right;
+    clear: right;
+
+    width: min-content;
+
+    margin: 20px;
+    
+    background-color: black;
+    border: 2px solid white;
+    border-radius: 5px;
+}
+
+.infobox-header {
+    background-color: black;
+    text-align: center;
+    padding: 5px 5px 10px 5px;
+    margin: 0px;
+    
+    font-size: 36px;
+}
+
+.infobox-table {
+    padding: 5px;
+    font-size: 27px;
+    border-spacing: 5px;
+    border-collapse: collapse;
+}
+
+.infobox-image {
+    display: flex;
+    align-items: center;
+    width: 64px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    margin: auto;
+}
+
+.infobox-table-row {
+    border-top: 1px solid white;
+}
+
+.infobox-table-label {
+    font-size: 0.85em;
+
+    font-weight: bold;
+    text-align: left;
+
+    padding: 10px;
+    padding-right: 20px;
+
+    vertical-align: middle;
+}
+
+.infobox-table-info {
+    font-size: 0.85em;
+    vertical-align: middle;
+    padding: 10px;
+    min-width: 160px;
+    color: rgb(194, 194, 194);
+}
+
+.infobox-table-icon {
+    height: 24px;
+    padding: 3px 0;
+    vertical-align: middle;
+}
+
+.wiki-h1 {
+    font-size: 2.2em;
+    margin: 0 0 0 10px;
+    border-bottom: 1px solid white;
+}
+
+.wiki-h2 {
+    overflow-x: visible;
+    overflow-y: hidden;
+    font-size: 2em;
+    margin: 0 0 0 10px;
+    border-bottom: 1px solid white;
+}
+
+.wiki-h3 {
+    overflow-x: visible;
+    overflow-y: hidden;
+    font-size: 1.6em;
+    margin: 0 0 0 10px;
+}
+
+.wiki-subheader {
+    font-size: 1em;
+    color: #ccc;
+    margin-left: 15px;
+}
+
+.wiki-body {
+    font-size: 26px;
+    margin: 10px;
+    margin-left: 10px;
+}
+
+ul ul {
+    padding-top: 2px;
+    padding-left: 20px;
+}
+
+.wiki-list-item {
+    margin-bottom: 5px;
+    font-size: 26px;
+}
+
+.wiki-table {
+    border-spacing: 0;
+    border-collapse: collapse;
+    border: 2px solid white;
+    font-size: 26px;
+
+    margin-left: 10px;
+}
+
+.wiki-table tr * {
+    padding: 5px 10px;
+    text-align: left;
+    /* width: min-content; */
+
+}
+
+.wiki-table-row * {
+    border-bottom: 1px solid white;
+}
+
+.wiki-table-header * {
+    /* color: black; */
+    background-color: white;
+    color: black;
+}
