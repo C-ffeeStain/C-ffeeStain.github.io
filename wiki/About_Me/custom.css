@@ -1,10 +1,10 @@
 @font-face {
             font-family: OMORI;
-            src: url("/wiki/about-me/font.ttf");
+            src: url("/wiki/About_Me/font.ttf");
         }
 
 body {
-    background-image: url("/wiki/about-me/imgs/background.png");
+    background-image: url("/wiki/About_Me/imgs/background.png");
     color: white;
 
     font-family: OMORI, monospace;
